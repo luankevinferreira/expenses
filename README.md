@@ -1,2 +1,2 @@
-# expenses
+# Despesas
 App for expense control.
