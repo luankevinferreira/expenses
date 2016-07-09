@@ -1,0 +1,42 @@
+<resources>
+    <string name="action_about">Sobre</string>
+    <string name="activity_history">Histórico de despesas</string>
+    <string name="author">Luan Kevin Ferreira</string>
+    <string name="country">BR</string>
+    <string name="date">Date</string>
+    <string name="date_month_pattern">MMMM</string>
+    <string name="date_pattern">dd/MM/yyyy</string>
+    <string name="decimal_pattern">$######0.00</string>
+    <string name="delete">Deletar</string>
+    <string name="developer">Desenvolvedor</string>
+    <string name="description">Descrição</string>
+    <string name="edit">Editar</string>
+    <string name="error_delete">Erro ao deletar registro!</string>
+    <string name="error_save">Erro ao persistir dados!</string>
+    <string name="error_select">Erro ao ler dados!</string>
+    <string name="hint_value">0.00</string>
+    <string name="hint_write_description">Adicione uma descrição</string>
+    <string name="language">pt</string>
+    <string name="money">Dinheiro</string>
+    <string name="msg_error_value">Ops, digite um valor!</string>
+    <string name="next">Próximo</string>
+    <string name="normal_text">Normal Text</string>
+    <string name="previous">Anterior</string>
+    <string name="success_delete">Registro deletado com sucesso!</string>
+    <string name="success_save">Registro salvo com sucesso!</string>
+    <string name="save">Salvar</string>
+    <string name="title_graphic">Gastos dos últimos meses</string>
+    <string name="total">Total</string>
+    <string name="total_month">Total de gastos do mês</string>
+    <string name="version">Versão beta: 0.0.1</string>
+
+    <array name="expense_types">
+        <item>Alimentação</item>
+        <item>Educação</item>
+        <item>Lazer</item>
+        <item>Moradia</item>
+        <item>Pagamentos</item>
+        <item>Transporte</item>
+        <item>Vários</item>
+    </array>
+</resources>
