@@ -1,4 +1,3 @@
-# Despesas
 <a name="Despesas">[<img src="https://github.com/luankevinferreira/expenses/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />](https://play.google.com/store/apps/details?id=luankevinferreira.expenses)</a>
 
 [![Build Status](https://travis-ci.org/luankevinferreira/expenses.svg?branch=master)](https://travis-ci.org/luankevinferreira/expenses)
