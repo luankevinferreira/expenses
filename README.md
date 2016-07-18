@@ -1,4 +1,4 @@
-![Despesas](images/original-image.jpg)
+![Despesas](app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 
 # Despesas
 App for expense control.
