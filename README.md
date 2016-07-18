@@ -1,3 +1,5 @@
+![Despesas](images/original-image.jpg)
+
 # Despesas
 App for expense control.
 
