@@ -8,5 +8,3 @@
 
 <a name="Expenses">[<img src="https://github.com/luankevinferreira/expenses/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" ></img>](https://play.google.com/store/apps/details?id=luankevinferreira.expenses)</a>
 #Expenses App
-
-=======
