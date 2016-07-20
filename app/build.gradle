@@ -13,6 +13,7 @@ android {
     }
     buildTypes {
         debug {
+            testCoverageEnabled true
             applicationIdSuffix '.debug'
             versionNameSuffix '-DEBUG'
             resValue "string", "app_name", "D-DEBUG"
