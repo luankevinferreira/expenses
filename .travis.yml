@@ -6,4 +6,4 @@ before_install:
 android:
   components:
     - build-tools-24.0.0
-- android-24
+    - android-24
