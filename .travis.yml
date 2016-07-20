@@ -34,4 +34,3 @@ before_script:
   - emulator -avd test -no-skin -no-audio -no-window &
 script:
   - ./wait_for_emulator
-  - ./gradlew connectedObaGoogleDebugAndroidTest -PdisablePreDex
