@@ -1,5 +1,7 @@
 language: android
 android:
+  jdk:
+    - openjdk8
   components:
     - platform-tools	
     - tools
