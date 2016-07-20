@@ -1,6 +1,9 @@
 language: android
 jdk:
   - oraclejdk8
+addons:
+  code_climate:
+    epo_token: 0ce6ed02eaa42d14118f39019b2bb2f812d0e12c36b7d1441a8eaf42fbd677f9
 # Turn off caching to avoid any caching problems
 cache: false
 # Don't use the Travis Container-Based Infrastructure - See #476
