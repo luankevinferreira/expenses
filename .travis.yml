@@ -32,3 +32,5 @@ before_script:
   - echo no | android create avd --force -n test -t android-$ANDROID_API_LEVEL --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
