@@ -1,7 +1,7 @@
 language: android
 android:
   components:
-    - build-tools-22.0.1
-    - android-22
+    - tools # to get the new `repository-11.xml`
+    - tools # to install Android SDK tools 25.1.x (x = 6 right now)
 before_install:
  - chmod +x gradlew
