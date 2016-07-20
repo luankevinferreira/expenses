@@ -1,7 +1,7 @@
 language: android
 android:
   components:
-    - tools
     - platform-tools	
+    - tools
 before_install:
  - chmod +x gradlew
