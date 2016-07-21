@@ -14,6 +14,7 @@
     <string name="error_delete">Erro ao deletar registro!</string>
     <string name="error_save">Erro ao persistir dados!</string>
     <string name="error_select">Erro ao ler dados!</string>
+    <string name="filter">Filtrar</string>
     <string name="hint_value">0.00</string>
     <string name="hint_write_description">Adicione uma descrição</string>
     <string name="language">pt</string>
