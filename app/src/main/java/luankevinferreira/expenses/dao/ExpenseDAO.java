@@ -16,6 +16,7 @@ import java.util.List;
 
 import luankevinferreira.expenses.database.DatabaseHelper;
 import luankevinferreira.expenses.domain.Expense;
+import luankevinferreira.expenses.domain.Type;
 import luankevinferreira.expenses.util.DateUtils;
 
 import static luankevinferreira.expenses.database.DatabaseHelper.Expense.DESCRIPTION;
@@ -28,6 +29,7 @@ import static luankevinferreira.expenses.database.DatabaseHelper.Expense._ID;
 public class ExpenseDAO implements Approachable<Expense>, Closeable {
 
     public static final int QUERY_ERROR = -1;
+    private static final int ZERO = 0;
     private DatabaseHelper databaseHelper;
     private SQLiteDatabase sqLiteDatabase;
     private DecimalFormat decimalFormat;
@@ -68,7 +70,7 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         String whereClause = _ID + " = ?";
         String[] whereArgs = new String[]{String.valueOf(expense.getId())};
         int removed = getSqLiteDatabase().delete(TABLE, whereClause, whereArgs);
-        return removed > 0;
+        return removed > ZERO;
     }
 
     @Override
@@ -121,7 +123,7 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         Cursor cursor = getSqLiteDatabase().rawQuery("SELECT SUM(" + VALUE + ") FROM " + TABLE
                 + "  WHERE strftime('%m', " + EXPENSE_DATE + ") = ?", new String[]{strMonth});
 
-        double total = 0;
+        double total = ZERO;
 
         if (cursor.moveToFirst()) {
             do {
@@ -132,4 +134,32 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
 
         return total;
     }
+
+    /**
+     * Select in the database all distinct expense type from all expenses.
+     *
+     * @return List of distinct expenses types.
+     * @throws Exception case any problem happened.
+     */
+    public List<Type> selectTypesExpenses() throws Exception {
+        List<Type> types = new ArrayList<>();
+
+        String query = "SELECT DISTINCT " + TYPE + " FROM " + TABLE;
+        Cursor cursor = getSqLiteDatabase().rawQuery(query, new String[]{});
+
+        int index = ZERO;
+        if (cursor.moveToFirst()) {
+            do {
+                Type type = new Type();
+                type.setId(++index);
+                type.setName(cursor.getString(0));
+
+                types.add(type);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return types;
+    }
 }
+
