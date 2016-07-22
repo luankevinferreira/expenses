@@ -2,6 +2,7 @@ package luankevinferreira.expenses.util;
 
 import android.util.Log;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +10,9 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -25,13 +28,26 @@ public class DateUtilsTest {
     @Test
     public void when_get_string_date_passing_null_must_return_new_date_string() {
         // Prepare
-        Date date = null;
         DateUtils dateUtils = new DateUtils();
 
         // Action
-        String expected = dateUtils.getStringDateTime(date);
+        String expected = dateUtils.getStringDateTime(null);
 
         // Verify
         assertNotNull(expected);
+    }
+
+    @Test
+    public void when_get_date_format_must_return_full_date_format() {
+        // Prepare
+        DateUtils dateUtils = new DateUtils();
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.set(2016, Calendar.JULY, 1, 2, 3, 4);
+
+        // Action
+        SimpleDateFormat format = dateUtils.getDateFormat();
+
+        // Verify
+        Assert.assertEquals("2016-07-01 02:03:04", format.format(calendar.getTime()));
     }
 }
