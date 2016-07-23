@@ -26,7 +26,7 @@ public class DateUtilsTest {
     }
 
     @Test
-    public void when_get_string_date_passing_null_must_return_new_date_string() {
+    public void whenGetStringDatePassingNullMustReturnNewDateString() {
         // Prepare
         DateUtils dateUtils = new DateUtils();
 
@@ -38,7 +38,7 @@ public class DateUtilsTest {
     }
 
     @Test
-    public void when_get_date_format_must_return_full_date_format() {
+    public void whenGetDateFormatMustReturnFullDateFormat() {
         // Prepare
         DateUtils dateUtils = new DateUtils();
         GregorianCalendar calendar = new GregorianCalendar();
