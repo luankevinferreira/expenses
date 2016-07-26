@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 public class TypeTest {
 
     @Test
-    public void test_the_class_properties() {
+    public void testTheClassProperties() {
         // Prepare
         int id = 2;
         String name = "Luan";
