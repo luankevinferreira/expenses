@@ -1,6 +1,7 @@
 <resources>
     <string name="action_about">Sobre</string>
     <string name="activity_history">Histórico de despesas</string>
+    <string name="all">* TODOS *</string>
     <string name="author">Luan Kevin Ferreira</string>
     <string name="country">BR</string>
     <string name="date">Date</string>
