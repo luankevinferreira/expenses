@@ -30,6 +30,7 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
 
     public static final int QUERY_ERROR = -1;
     private static final int ZERO = 0;
+    public static final String NO_FILTER = "* TODOS *";
     private DatabaseHelper databaseHelper;
     private SQLiteDatabase sqLiteDatabase;
     private DecimalFormat decimalFormat;
@@ -86,15 +87,22 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         return getSqLiteDatabase().update(TABLE, values, _ID + " = ?", whereArgs) != QUERY_ERROR;
     }
 
-    public List<Expense> select(Date date) throws ParseException {
+    public List<Expense> select(Date date, String filter) throws ParseException {
         DateFormat format = dateUtils.getDateFormat();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
         String strMonth = decimalFormat.format(calendar.get(Calendar.MONTH) + DateUtils.ONE_MONTH);
 
-        Cursor cursor = getSqLiteDatabase().rawQuery("SELECT * FROM " + TABLE
-                + " WHERE strftime('%m', " + EXPENSE_DATE + ") = ?", new String[]{strMonth});
+        String query = "SELECT * FROM " + TABLE + " WHERE strftime('%m', " + EXPENSE_DATE + ") = ?";
+        String[] whereArgs = new String[]{strMonth};
+
+        if ((filter != null) && (!filter.isEmpty()) && (!filter.equals(NO_FILTER))) {
+            query += " AND " + TYPE + " = ?";
+            whereArgs = new String[]{strMonth, filter};
+        }
+
+        Cursor cursor = getSqLiteDatabase().rawQuery(query, whereArgs);
 
         List<Expense> expenses = new ArrayList<>();
 
@@ -114,14 +122,23 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         return expenses;
     }
 
-    public double selectTotalMonth(Date date) throws ParseException {
+    public double selectTotalMonth(Date date, String filter) throws ParseException {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
         String strMonth = decimalFormat.format(calendar.get(Calendar.MONTH) + DateUtils.ONE_MONTH);
 
-        Cursor cursor = getSqLiteDatabase().rawQuery("SELECT SUM(" + VALUE + ") FROM " + TABLE
-                + "  WHERE strftime('%m', " + EXPENSE_DATE + ") = ?", new String[]{strMonth});
+        String query = "SELECT SUM(" + VALUE + ") FROM " + TABLE + " WHERE strftime('%m', "
+                + EXPENSE_DATE + ") = ?";
+
+        String[] whereArgs = new String[]{strMonth};
+
+        if ((filter != null) && (!filter.isEmpty()) && (!filter.equals(NO_FILTER))) {
+            query += " AND " + TYPE + " = ?";
+            whereArgs = new String[]{strMonth, filter};
+        }
+
+        Cursor cursor = getSqLiteDatabase().rawQuery(query, whereArgs);
 
         double total = ZERO;
 

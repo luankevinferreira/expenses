@@ -33,7 +33,7 @@ public class GraphicUtils {
         return staticLabelsFormatter;
     }
 
-    public DataPoint[] getDataPoints(Context context) {
+    public DataPoint[] getDataPoints(Context context, String filter) {
         DataPoint[] points = new DataPoint[4];
 
         Calendar date = Calendar.getInstance();
@@ -44,7 +44,7 @@ public class GraphicUtils {
         for (int i = 0; i < points.length; i++) {
             date.set(MONTH, date.get(MONTH) + ONE_MONTH);
             try {
-                double total = dao.selectTotalMonth(date.getTime());
+                double total = dao.selectTotalMonth(date.getTime(), filter);
                 DataPoint point = new DataPoint(i, total);
                 points[i] = point;
             } catch (ParseException exception) {
