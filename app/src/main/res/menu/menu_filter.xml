@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    <group
-        android:id="@+id/group_filter"
-        android:checkableBehavior="all" />
+    <group android:id="@+id/group_filter">
+        <item
+            android:id="@+id/no_filter"
+            android:orderInCategory="0"
+            android:title="@string/all" />
+    </group>
 
 </menu>
