@@ -16,6 +16,7 @@ import java.util.List;
 
 import luankevinferreira.expenses.database.DatabaseHelper;
 import luankevinferreira.expenses.domain.Expense;
+import luankevinferreira.expenses.domain.Type;
 import luankevinferreira.expenses.util.DateUtils;
 
 import static luankevinferreira.expenses.database.DatabaseHelper.Expense.DESCRIPTION;
@@ -28,6 +29,8 @@ import static luankevinferreira.expenses.database.DatabaseHelper.Expense._ID;
 public class ExpenseDAO implements Approachable<Expense>, Closeable {
 
     public static final int QUERY_ERROR = -1;
+    private static final int ZERO = 0;
+    public static final String NO_FILTER = "* TODOS *";
     private DatabaseHelper databaseHelper;
     private SQLiteDatabase sqLiteDatabase;
     private DecimalFormat decimalFormat;
@@ -68,7 +71,7 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         String whereClause = _ID + " = ?";
         String[] whereArgs = new String[]{String.valueOf(expense.getId())};
         int removed = getSqLiteDatabase().delete(TABLE, whereClause, whereArgs);
-        return removed > 0;
+        return removed > ZERO;
     }
 
     @Override
@@ -84,15 +87,22 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         return getSqLiteDatabase().update(TABLE, values, _ID + " = ?", whereArgs) != QUERY_ERROR;
     }
 
-    public List<Expense> select(Date date) throws ParseException {
+    public List<Expense> select(Date date, String filter) throws ParseException {
         DateFormat format = dateUtils.getDateFormat();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
         String strMonth = decimalFormat.format(calendar.get(Calendar.MONTH) + DateUtils.ONE_MONTH);
 
-        Cursor cursor = getSqLiteDatabase().rawQuery("SELECT * FROM " + TABLE
-                + " WHERE strftime('%m', " + EXPENSE_DATE + ") = ?", new String[]{strMonth});
+        String query = "SELECT * FROM " + TABLE + " WHERE strftime('%m', " + EXPENSE_DATE + ") = ?";
+        String[] whereArgs = new String[]{strMonth};
+
+        if ((filter != null) && (!filter.isEmpty()) && (!filter.equals(NO_FILTER))) {
+            query += " AND " + TYPE + " = ?";
+            whereArgs = new String[]{strMonth, filter};
+        }
+
+        Cursor cursor = getSqLiteDatabase().rawQuery(query, whereArgs);
 
         List<Expense> expenses = new ArrayList<>();
 
@@ -112,16 +122,25 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         return expenses;
     }
 
-    public double selectTotalMonth(Date date) throws ParseException {
+    public double selectTotalMonth(Date date, String filter) throws ParseException {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
         String strMonth = decimalFormat.format(calendar.get(Calendar.MONTH) + DateUtils.ONE_MONTH);
 
-        Cursor cursor = getSqLiteDatabase().rawQuery("SELECT SUM(" + VALUE + ") FROM " + TABLE
-                + "  WHERE strftime('%m', " + EXPENSE_DATE + ") = ?", new String[]{strMonth});
+        String query = "SELECT SUM(" + VALUE + ") FROM " + TABLE + " WHERE strftime('%m', "
+                + EXPENSE_DATE + ") = ?";
 
-        double total = 0;
+        String[] whereArgs = new String[]{strMonth};
+
+        if ((filter != null) && (!filter.isEmpty()) && (!filter.equals(NO_FILTER))) {
+            query += " AND " + TYPE + " = ?";
+            whereArgs = new String[]{strMonth, filter};
+        }
+
+        Cursor cursor = getSqLiteDatabase().rawQuery(query, whereArgs);
+
+        double total = ZERO;
 
         if (cursor.moveToFirst()) {
             do {
@@ -132,4 +151,32 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
 
         return total;
     }
+
+    /**
+     * Select in the database all distinct expense type from all expenses.
+     *
+     * @return List of distinct expenses types.
+     * @throws Exception case any problem happened.
+     */
+    public List<Type> selectTypesExpenses() throws Exception {
+        List<Type> types = new ArrayList<>();
+
+        String query = "SELECT DISTINCT " + TYPE + " FROM " + TABLE;
+        Cursor cursor = getSqLiteDatabase().rawQuery(query, new String[]{});
+
+        int index = ZERO;
+        if (cursor.moveToFirst()) {
+            do {
+                Type type = new Type();
+                type.setId(++index);
+                type.setName(cursor.getString(0));
+
+                types.add(type);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return types;
+    }
 }
+

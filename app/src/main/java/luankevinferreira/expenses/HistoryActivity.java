@@ -90,7 +90,7 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
 
     private void readExpensesMoth(Date date) {
         try (ExpenseDAO dao = new ExpenseDAO(getApplicationContext())) {
-            expenses = dao.select(date);
+            expenses = dao.select(date, ExpenseDAO.NO_FILTER);
         } catch (Exception exception) {
             makeText(getApplicationContext(), getString(R.string.error_select), LENGTH_LONG);
             finish();

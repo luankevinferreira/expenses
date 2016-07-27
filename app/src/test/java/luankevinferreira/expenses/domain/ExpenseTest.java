@@ -10,7 +10,7 @@ import static org.junit.Assert.assertNotNull;
 public class ExpenseTest {
 
     @Test
-    public void test_the_class_properties() {
+    public void testTheClassProperties() {
         // Prepare
         String description = "Description";
         Date date = new Date();
@@ -36,7 +36,7 @@ public class ExpenseTest {
     }
 
     @Test
-    public void when_call_constructor_must_return_date_attribute_and_to_string_not_null() {
+    public void whenCallConstructorMustReturnDateAttributeAndToStringNotNull() {
         // Prepare
         Expense expense;
 
