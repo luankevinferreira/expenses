@@ -26,8 +26,8 @@ android {
         }
     }
     lintOptions {
-          abortOnError false
-      }
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -43,5 +43,3 @@ dependencies {
     testCompile 'org.powermock:powermock-module-junit4-rule:1.6.1'
     testCompile 'org.powermock:powermock-module-junit4:1.6.1'
 }
-
-apply plugin: 'com.google.gms.google-services'
