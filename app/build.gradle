@@ -9,7 +9,7 @@ android {
         applicationId "luankevinferreira.expenses"
         minSdkVersion 19
         targetSdkVersion 24
-        versionCode 8
+        versionCode 9
         versionName "1.0.1"
     }
     buildTypes {
