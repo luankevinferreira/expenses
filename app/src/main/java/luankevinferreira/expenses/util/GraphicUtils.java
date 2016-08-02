@@ -8,7 +8,6 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 
-import java.text.ParseException;
 import java.util.Calendar;
 
 import luankevinferreira.expenses.dao.ExpenseDAO;
@@ -16,7 +15,6 @@ import luankevinferreira.expenses.enumeration.LabelsType;
 
 import static java.util.Calendar.MONTH;
 import static luankevinferreira.expenses.util.DateUtils.FOUR_MONTH;
-import static luankevinferreira.expenses.util.DateUtils.ONE_MONTH;
 
 public class GraphicUtils {
 
@@ -40,19 +38,16 @@ public class GraphicUtils {
 
     public DataPoint[] getDataPoints(Context context, String filter) {
         DataPoint[] points = new DataPoint[FOUR_MONTH];
-
-        Calendar date = Calendar.getInstance();
-        date.set(MONTH, date.get(MONTH) - FOUR_MONTH);
-
         ExpenseDAO dao = new ExpenseDAO(context);
 
-        for (int i = 0; i < points.length; i++) {
-            date.set(MONTH, date.get(MONTH) + ONE_MONTH);
+        for (int i = 0, j = 3; i < points.length; i++, j--) {
+            Calendar date = Calendar.getInstance();
+            date.set(MONTH, date.get(MONTH) - j);
             try {
                 double total = dao.selectTotalMonth(date.getTime(), filter);
                 DataPoint point = new DataPoint(i, total);
                 points[i] = point;
-            } catch (ParseException exception) {
+            } catch (Exception exception) {
                 Log.e(getClass().getCanonicalName(), exception.getMessage(), exception);
             }
         }
