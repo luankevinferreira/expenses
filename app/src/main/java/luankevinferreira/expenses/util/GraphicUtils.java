@@ -1,6 +1,7 @@
 package luankevinferreira.expenses.util;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.jjoe64.graphview.GraphView;
@@ -20,12 +21,7 @@ import static luankevinferreira.expenses.util.DateUtils.ONE_MONTH;
 public class GraphicUtils {
 
     public StaticLabelsFormatter getLabels(GraphView graph) {
-        Calendar calendar = Calendar.getInstance();
-
-        String[] labels = new String[FOUR_MONTH];
-        for (int i = 0, j = 3; i < labels.length; i++, j--) {
-            labels[i] = LabelsType.getLabel(calendar.get(MONTH) - j);
-        }
+        String[] labels = getStringsLabels(Calendar.getInstance());
 
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
         staticLabelsFormatter.setHorizontalLabels(labels);
@@ -33,8 +29,17 @@ public class GraphicUtils {
         return staticLabelsFormatter;
     }
 
+    @NonNull
+    public String[] getStringsLabels(Calendar calendar) {
+        String[] labels = new String[FOUR_MONTH];
+        for (int i = 0, j = 3; i < labels.length; i++, j--) {
+            labels[i] = LabelsType.getLabel(calendar.get(MONTH) - j);
+        }
+        return labels;
+    }
+
     public DataPoint[] getDataPoints(Context context, String filter) {
-        DataPoint[] points = new DataPoint[4];
+        DataPoint[] points = new DataPoint[FOUR_MONTH];
 
         Calendar date = Calendar.getInstance();
         date.set(MONTH, date.get(MONTH) - FOUR_MONTH);
