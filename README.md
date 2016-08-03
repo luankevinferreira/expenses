@@ -6,6 +6,7 @@
 
 |[![Logo App](https://github.com/luankevinferreira/expenses/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)](https://play.google.com/store/apps/details?id=luankevinferreira.expenses)| <h1>Expenses</h1><p>Simple App for expenses control</p> [![Google Play logo](http://www.android.com/images/brand/android_app_on_play_logo_large.png)](https://play.google.com/store/apps/details?id=luankevinferreira.expenses) |
 |:-:|:-:|
+|
 
 ## Licence
 
