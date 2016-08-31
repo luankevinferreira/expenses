@@ -15,3 +15,4 @@
 ### Publish Tools
 
 * [![Feature Graphic Generator](http://www.norio.be/android-feature-graphic-generator/)](http://www.norio.be/android-feature-graphic-generator/)
+* [![Asset Studio](https://romannurik.github.io/AndroidAssetStudio/)](https://romannurik.github.io/AndroidAssetStudio/)
