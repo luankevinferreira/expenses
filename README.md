@@ -10,7 +10,7 @@
 
 ## Licence
 
-**Expenses**  is licensed under the [![Apache Licence 2.0](http://www.apache.org/licenses/LICENSE-2.0)](http://www.apache.org/licenses/LICENSE-2.0).
+**Expenses**  is licensed under the [GNU General Public License, version 3 (GPL-3.0)](https://opensource.org/licenses/GPL-3.0).
 
 ### Publish Tools
 
