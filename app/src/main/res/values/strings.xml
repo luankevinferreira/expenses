@@ -8,7 +8,6 @@
     <string name="date_pattern">dd/MM/yyyy</string>
     <string name="decimal_pattern">$######0.00</string>
     <string name="delete">Deletar</string>
-    <string name="developer">Desenvolvedor</string>
     <string name="description">Descrição</string>
     <string name="edit">Editar</string>
     <string name="error_delete">Erro ao deletar registro!</string>
@@ -21,7 +20,7 @@
     <string name="money">Dinheiro</string>
     <string name="msg_error_value">Ops, digite um valor!</string>
     <string name="next">Próximo</string>
-    <string name="normal_text">Normal Text</string>
+    <string name="normal_text">Texto Normal</string>
     <string name="previous">Anterior</string>
     <string name="success_delete">Registro deletado com sucesso!</string>
     <string name="success_save">Registro salvo com sucesso!</string>
@@ -29,7 +28,6 @@
     <string name="title_graphic">Gastos dos últimos meses</string>
     <string name="total">Total</string>
     <string name="total_month">Total de gastos do mês</string>
-    <string name="version">Versão beta: 0.0.1</string>
 
     <array name="expense_types">
         <item>Alimentação</item>
