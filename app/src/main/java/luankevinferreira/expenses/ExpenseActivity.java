@@ -93,7 +93,7 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
                 setResult(CodeIntentType.STATUS_OK.getCode());
             } catch (Exception exception) {
                 setResult(CodeIntentType.STATUS_ERROR.getCode());
-                makeText(getApplicationContext(), getString(R.string.error_delete), LENGTH_LONG);
+                makeText(getApplicationContext(), getString(R.string.error_delete), LENGTH_LONG).show();
             }
             finish();
         }
@@ -116,7 +116,7 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
                 saveExpense(dao);
             } catch (Exception exception) {
                 setResult(CodeIntentType.STATUS_ERROR.getCode());
-                makeText(getApplicationContext(), getString(R.string.error_save), LENGTH_LONG);
+                makeText(getApplicationContext(), getString(R.string.error_save), LENGTH_LONG).show();
             }
             finish();
         }
