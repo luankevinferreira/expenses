@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        updateTotalMonth(ExpenseDAO.NO_FILTER);
+        updateTotalMonth(ExpenseDAO.NO_FILTER_EN);
     }
 
     @Override
@@ -141,19 +141,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }, DELAY_MILLIS);
             if (resultCode == STATUS_OK.getCode()) {
-                series.resetData(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.NO_FILTER));
+                series.resetData(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.NO_FILTER_EN));
                 recreate();
             }
         } else if (requestCode == REQUEST_DETAIL_EXPENSES.getCode()) {
             if (resultCode == STATUS_OK.getCode()) {
-                series.resetData(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.NO_FILTER));
+                series.resetData(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.NO_FILTER_EN));
                 recreate();
             }
         }
     }
 
     private void configGraphic() {
-        series = new LineGraphSeries<>(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.NO_FILTER));
+        series = new LineGraphSeries<>(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.NO_FILTER_EN));
         series.setTitle(getString(R.string.total));
         series.setColor(Color.RED);
         graph.addSeries(series);
