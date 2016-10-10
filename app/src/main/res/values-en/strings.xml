@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Expenses</string>
+    <string name="all">* ALL *</string>
+    <string name="country">EN</string>
+    <string name="date">Date</string>
+    <string name="date_pattern">MM-dd-yyyy</string>
+    <string name="author">Luan Kevin Ferreira</string>
+    <string name="delete">Delete</string>
+    <string name="description">Description</string>
+    <string name="edit">Edit</string>
+    <string name="filter">Filter</string>
+    <string name="language">en</string>
+    <string name="money">Money</string>
+    <string name="total">Total</string>
+    <string name="total_month">Total of month expenses</string>
+    <string name="title_graphic">Expenses of the last months</string>
+    <string name="success_save">Saved success!</string>
+    <string name="save">Save</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="msg_error_value">Ops, type a value!</string>
+    <string name="activity_history">Expenses history</string>
+    <string name="date_month_pattern">MMMM</string>
+    <string name="decimal_pattern">$######0.00</string>
+    <string name="error_delete">Error to delete register!</string>
+    <string name="error_save">Error to data save!</string>
+    <string name="error_select">Error to read data!</string>
+    <string name="hint_value">0.00</string>
+    <string name="hint_write_description">Add a description</string>
+    <string name="normal_text">Normal Text</string>
+    <string name="success_delete">Deleted success!</string>
+
+    <array name="expense_types">
+        <item>Food</item>
+        <item>Education</item>
+        <item>Recreation</item>
+        <item>Dwelling</item>
+        <item>Payments</item>
+        <item>Clothes</item>
+        <item>Transportation</item>
+        <item>Others</item>
+    </array>
+</resources>
