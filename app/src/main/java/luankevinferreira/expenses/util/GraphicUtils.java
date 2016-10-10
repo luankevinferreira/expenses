@@ -28,7 +28,7 @@ public class GraphicUtils {
     }
 
     @NonNull
-    public String[] getStringsLabels(Calendar calendar) {
+    String[] getStringsLabels(Calendar calendar) {
         String[] labels = new String[FOUR_MONTH];
         for (int i = 0, j = 3; i < labels.length; i++, j--) {
             labels[i] = LabelsType.getLabel(calendar.get(MONTH) - j);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">D-DEBUG</string>
-    <string name="all">*ALL*</string>
+    <string name="app_name">Expenses</string>
+    <string name="all">* ALL *</string>
     <string name="country">EN</string>
     <string name="date">Date</string>
     <string name="date_pattern">MM-dd-yyyy</string>
@@ -13,7 +13,7 @@
     <string name="language">en</string>
     <string name="money">Money</string>
     <string name="total">Total</string>
-    <string name="total_month">Total of expenses of the month</string>
+    <string name="total_month">Total of month expenses</string>
     <string name="title_graphic">Expenses of the last months</string>
     <string name="success_save">Saved success!</string>
     <string name="save">Save</string>
@@ -30,4 +30,15 @@
     <string name="hint_write_description">Add a description</string>
     <string name="normal_text">Normal Text</string>
     <string name="success_delete">Deleted success!</string>
+
+    <array name="expense_types">
+        <item>Food</item>
+        <item>Education</item>
+        <item>Recreation</item>
+        <item>Dwelling</item>
+        <item>Payments</item>
+        <item>Clothes</item>
+        <item>Transportation</item>
+        <item>Others</item>
+    </array>
 </resources>

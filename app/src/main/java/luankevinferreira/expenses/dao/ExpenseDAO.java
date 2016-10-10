@@ -28,9 +28,10 @@ import static luankevinferreira.expenses.database.DatabaseHelper.Expense._ID;
 
 public class ExpenseDAO implements Approachable<Expense>, Closeable {
 
-    public static final int QUERY_ERROR = -1;
+    public static final String NO_FILTER_EN = "* ALL *";
+    private static final String NO_FILTER_BR = "* TODOS *";
+    private static final int QUERY_ERROR = -1;
     private static final int ZERO = 0;
-    public static final String NO_FILTER = "* TODOS *";
     private DatabaseHelper databaseHelper;
     private SQLiteDatabase sqLiteDatabase;
     private DecimalFormat decimalFormat;
@@ -97,9 +98,11 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         String query = "SELECT * FROM " + TABLE + " WHERE strftime('%m', " + EXPENSE_DATE + ") = ?";
         String[] whereArgs = new String[]{strMonth};
 
-        if ((filter != null) && (!filter.isEmpty()) && (!filter.equals(NO_FILTER))) {
-            query += " AND " + TYPE + " = ?";
-            whereArgs = new String[]{strMonth, filter};
+        if ((filter != null) && (!filter.isEmpty())) {
+            if ((!filter.equals(NO_FILTER_BR)) && (!filter.equals(NO_FILTER_EN))) {
+                query += " AND " + TYPE + " = ?";
+                whereArgs = new String[]{strMonth, filter};
+            }
         }
 
         Cursor cursor = getSqLiteDatabase().rawQuery(query, whereArgs);
@@ -133,9 +136,11 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
 
         String[] whereArgs = new String[]{strMonth};
 
-        if ((filter != null) && (!filter.isEmpty()) && (!filter.equals(NO_FILTER))) {
-            query += " AND " + TYPE + " = ?";
-            whereArgs = new String[]{strMonth, filter};
+        if ((filter != null) && (!filter.isEmpty())) {
+            if ((!filter.equals(NO_FILTER_BR)) && (!filter.equals(NO_FILTER_EN))) {
+                query += " AND " + TYPE + " = ?";
+                whereArgs = new String[]{strMonth, filter};
+            }
         }
 
         Cursor cursor = getSqLiteDatabase().rawQuery(query, whereArgs);
