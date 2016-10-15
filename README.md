@@ -17,5 +17,9 @@
 * [Feature Graphic Generator](http://www.norio.be/android-feature-graphic-generator/)
 * [Asset Studio](https://romannurik.github.io/AndroidAssetStudio/)
 
+### Development Tools
+
+* [Material Icons](https://design.google.com/icons/)
+
 ### Used components
 * [Graph View](https://github.com/jjoe64/GraphView)
