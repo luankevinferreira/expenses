@@ -55,6 +55,8 @@
                     android:layout_weight="0.5"
                     android:contentDescription="@string/description"
                     android:paddingEnd="10dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="10dp"
                     android:paddingStart="0dp"
                     android:paddingTop="10dp"
                     android:src="@drawable/ic_border_color_black_36dp" />
@@ -66,7 +68,7 @@
                     android:layout_weight="9.5"
                     android:hint="@string/hint_write_description"
                     android:maxLength="25"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
             </LinearLayout>
@@ -89,6 +91,7 @@
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="start"
                     android:layout_weight="9.5"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"

@@ -82,6 +82,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:text="@string/total"
                 android:textAlignment="textStart"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -91,6 +92,7 @@
                 android:id="@+id/total_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:text="Large Text"
                 android:textAlignment="textEnd"
                 android:textAppearance="?android:attr/textAppearanceLarge"

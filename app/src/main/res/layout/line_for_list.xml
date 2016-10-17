@@ -36,6 +36,7 @@
         android:id="@+id/line_expense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="end"
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
         android:text="Large Text"
