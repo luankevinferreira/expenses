@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import luankevinferreira.expenses.analytics.AnalyticsApplication;
 import luankevinferreira.expenses.dao.ExpenseDAO;
 import luankevinferreira.expenses.domain.Expense;
 import luankevinferreira.expenses.domain.Type;
@@ -37,6 +40,8 @@ import static luankevinferreira.expenses.enumeration.CodeIntentType.STATUS_OK;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "MainActivity";
+
     public static final int DELAY_MILLIS = 300;
     public static final int ORDER = 0;
     private Button totalMonth;
@@ -47,11 +52,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LineGraphSeries<DataPoint> series;
     private GraphicUtils graphicUtils;
 
+    private Tracker mTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+
+        // Obtain the shared Tracker instance.
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        mTracker = application.getDefaultTracker();
 
         formatter = new DecimalFormat(getString(R.string.decimal_pattern));
 
@@ -78,6 +89,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         updateTotalMonth(ExpenseDAO.NO_FILTER_EN);
+
+        Log.i(TAG, "Setting screen name: " + getClass().getCanonicalName());
+        mTracker.setScreenName("Image~" + getClass().getCanonicalName());
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -173,10 +188,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void updateTotalMonth(String filter) {
         List<Expense> expenses = new ArrayList<>();
 
-        try (ExpenseDAO expenseDAO = new ExpenseDAO(getApplicationContext())) {
+        ExpenseDAO expenseDAO = null;
+        try {
+            expenseDAO = new ExpenseDAO(getApplicationContext());
             expenses = expenseDAO.select(new Date(), filter);
         } catch (ParseException exception) {
             Log.e(getClass().getCanonicalName(), exception.getMessage(), exception);
+        } finally {
+            if (expenseDAO != null)
+                expenseDAO.close();
         }
 
         double total = 0;
