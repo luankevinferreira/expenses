@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import luankevinferreira.expenses.analytics.AnalyticsApplication;
 import luankevinferreira.expenses.dao.ExpenseDAO;
 import luankevinferreira.expenses.domain.Expense;
 import luankevinferreira.expenses.domain.Type;

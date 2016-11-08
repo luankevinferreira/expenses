@@ -1,4 +1,4 @@
-package luankevinferreira.expenses.analytics;
+package luankevinferreira.expenses;
 
 import android.app.Application;
 
