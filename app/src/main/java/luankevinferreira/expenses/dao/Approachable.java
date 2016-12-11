@@ -1,6 +1,6 @@
 package luankevinferreira.expenses.dao;
 
-public interface Approachable<T> {
+interface Approachable<T> {
 
     boolean insert(T item) throws Exception;
 
