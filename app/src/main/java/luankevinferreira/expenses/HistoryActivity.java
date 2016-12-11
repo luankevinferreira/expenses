@@ -89,11 +89,14 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
     }
 
     private void readExpensesMoth(Date date) {
-        try (ExpenseDAO dao = new ExpenseDAO(getApplicationContext())) {
+        ExpenseDAO dao = new ExpenseDAO(getApplicationContext());
+        try {
             expenses = dao.select(date, ExpenseDAO.NO_FILTER_EN);
         } catch (Exception exception) {
             makeText(getApplicationContext(), getString(R.string.error_select), LENGTH_LONG);
             finish();
+        } finally {
+            dao.close();
         }
 
         //order by desc date
