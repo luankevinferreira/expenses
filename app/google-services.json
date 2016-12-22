@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "774758940766",
+    "project_id": "despesas-analytics"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774758940766:android:81d5307dab45feeb",
+        "android_client_info": {
+          "package_name": "luankevinferreira.expenses"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmtFQd71N26vTTfH-TGrsPhkaQPmLKiro"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-61261149-4"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
