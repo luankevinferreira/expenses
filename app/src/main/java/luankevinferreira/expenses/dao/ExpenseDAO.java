@@ -166,8 +166,16 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
     public List<Type> selectTypesExpenses() throws Exception {
         List<Type> types = new ArrayList<>();
 
-        String query = "SELECT DISTINCT " + TYPE + " FROM " + TABLE;
-        Cursor cursor = getSqLiteDatabase().rawQuery(query, new String[]{});
+        Calendar calendar = Calendar.getInstance();
+
+        String strMonth = decimalFormat.format(calendar.get(Calendar.MONTH) + DateUtils.ONE_MONTH);
+
+        String query = "SELECT DISTINCT " + TYPE + " FROM " + TABLE + " WHERE strftime('%m', "
+                + EXPENSE_DATE + ") = ?";
+
+        String[] whereArgs = new String[]{strMonth};
+
+        Cursor cursor = getSqLiteDatabase().rawQuery(query, whereArgs);
 
         int index = ZERO;
         if (cursor.moveToFirst()) {
