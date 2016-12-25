@@ -183,5 +183,13 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
 
         return types;
     }
+
+    /**
+     *
+     * @return true if all records are deleted
+     */
+    public boolean deleteAll() {
+        return getSqLiteDatabase().delete(TABLE, null, new String[]{}) == -1;
+    }
 }
 
