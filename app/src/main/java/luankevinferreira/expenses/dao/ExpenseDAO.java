@@ -14,17 +14,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import luankevinferreira.expenses.database.DatabaseHelper;
+import luankevinferreira.expenses.database.DatabaseManager;
 import luankevinferreira.expenses.domain.Expense;
 import luankevinferreira.expenses.domain.Type;
 import luankevinferreira.expenses.util.DateUtils;
 
-import static luankevinferreira.expenses.database.DatabaseHelper.Expense.DESCRIPTION;
-import static luankevinferreira.expenses.database.DatabaseHelper.Expense.EXPENSE_DATE;
-import static luankevinferreira.expenses.database.DatabaseHelper.Expense.TABLE;
-import static luankevinferreira.expenses.database.DatabaseHelper.Expense.TYPE;
-import static luankevinferreira.expenses.database.DatabaseHelper.Expense.VALUE;
-import static luankevinferreira.expenses.database.DatabaseHelper.Expense._ID;
+import static luankevinferreira.expenses.database.DatabaseManager.Expense.DESCRIPTION;
+import static luankevinferreira.expenses.database.DatabaseManager.Expense.EXPENSE_DATE;
+import static luankevinferreira.expenses.database.DatabaseManager.Expense.TABLE;
+import static luankevinferreira.expenses.database.DatabaseManager.Expense.TYPE;
+import static luankevinferreira.expenses.database.DatabaseManager.Expense.VALUE;
+import static luankevinferreira.expenses.database.DatabaseManager.Expense._ID;
 
 public class ExpenseDAO implements Approachable<Expense>, Closeable {
 
@@ -32,27 +32,27 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
     private static final String NO_FILTER_BR = "* TODOS *";
     private static final int QUERY_ERROR = -1;
     private static final int ZERO = 0;
-    private DatabaseHelper databaseHelper;
+    private DatabaseManager databaseManager;
     private SQLiteDatabase sqLiteDatabase;
     private DecimalFormat decimalFormat;
     private DateUtils dateUtils;
 
     public ExpenseDAO(Context context) {
-        databaseHelper = new DatabaseHelper(context);
+        databaseManager = new DatabaseManager(context);
         decimalFormat = new DecimalFormat("00");
         dateUtils = new DateUtils();
     }
 
     private SQLiteDatabase getSqLiteDatabase() {
         if (sqLiteDatabase == null) {
-            sqLiteDatabase = databaseHelper.getWritableDatabase();
+            sqLiteDatabase = databaseManager.getWritableDatabase();
         }
         return sqLiteDatabase;
     }
 
     @Override
     public void close() {
-        databaseHelper.close();
+        databaseManager.close();
         sqLiteDatabase = null;
     }
 
