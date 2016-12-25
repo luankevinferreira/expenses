@@ -87,13 +87,16 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
         int id = item.getItemId();
 
         if (id == R.id.action_delete) {
-            try (ExpenseDAO dao = new ExpenseDAO(getApplicationContext())) {
+            ExpenseDAO dao = new ExpenseDAO(getApplicationContext());
+            try {
                 dao.delete(expenseExtra);
                 makeText(getApplicationContext(), getString(R.string.success_delete), LENGTH_LONG).show();
                 setResult(CodeIntentType.STATUS_OK.getCode());
             } catch (Exception exception) {
                 setResult(CodeIntentType.STATUS_ERROR.getCode());
                 makeText(getApplicationContext(), getString(R.string.error_delete), LENGTH_LONG).show();
+            } finally {
+                dao.close();
             }
             finish();
         }
@@ -112,11 +115,14 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
                 expenseValue.setError(getString(R.string.msg_error_value));
                 return;
             }
-            try (ExpenseDAO dao = new ExpenseDAO(getApplicationContext())) {
+            ExpenseDAO dao = new ExpenseDAO(getApplicationContext());
+            try {
                 saveExpense(dao);
             } catch (Exception exception) {
                 setResult(CodeIntentType.STATUS_ERROR.getCode());
                 makeText(getApplicationContext(), getString(R.string.error_save), LENGTH_LONG).show();
+            } finally {
+                dao.close();
             }
             finish();
         }
