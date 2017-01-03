@@ -1,4 +1,4 @@
-package luankevinferreira.expenses;
+package luankevinferreira.expenses.dao;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;

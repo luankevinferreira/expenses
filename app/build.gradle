@@ -10,17 +10,11 @@ android {
         applicationId "luankevinferreira.expenses"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 13
-        versionName "1.1.4"
+        versionCode 14
+        versionName "1.1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        //debug {
-         //   testCoverageEnabled true
-         //   applicationIdSuffix '.debug'
-         //   versionNameSuffix '-DEBUG'
-         //   resValue "string", "app_name", "D-DEBUG"
-        //}
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
