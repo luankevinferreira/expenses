@@ -24,6 +24,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Created by Luan Kevin Ferreira on 12/25/2016.
+ *
  * @see ExpenseDAO
  */
 @RunWith(AndroidJUnit4.class)
@@ -33,7 +34,7 @@ public class ExpenseDAOTest {
     private ExpenseDAO expenseDAO;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         expenseDAO = new ExpenseDAO(InstrumentationRegistry.getTargetContext());
         expenseDAO.deleteAll();
     }
@@ -53,7 +54,7 @@ public class ExpenseDAOTest {
         // Prepare
         double value = 100.0;
         String type = "Type";
-        long id  = 123456;
+        long id = 123456;
         String description = "Description";
         Date date = new Date();
 
@@ -78,8 +79,8 @@ public class ExpenseDAOTest {
     public void testSelectOnlyTypesOfActualMonth() throws Exception {
         // Prepare
         Calendar dateActual = Calendar.getInstance();
-        Calendar dateLastMonth = Calendar.getInstance();
-        dateLastMonth.set(Calendar.MONTH, (Calendar.MONTH - 1));
+        Calendar dateAnotherMonth = Calendar.getInstance();
+        dateAnotherMonth.set(Calendar.MONTH, (Calendar.MONTH - 3));
 
         String typeLastMonth = "TypeLastMonth";
         String typeActualMonth = "TypeActualMonth";
@@ -89,7 +90,7 @@ public class ExpenseDAOTest {
         long id = 12345;
 
         Expense expenseLastMonth = new Expense();
-        expenseLastMonth.setDate(dateLastMonth.getTime());
+        expenseLastMonth.setDate(dateAnotherMonth.getTime());
         expenseLastMonth.setDescription(description);
         expenseLastMonth.setValue(value);
         expenseLastMonth.setId(id);
@@ -113,5 +114,43 @@ public class ExpenseDAOTest {
         assertEquals(typeActualMonth, rate.get(0).getName());
         expenseDAO.delete(expenseActualMonth);
         expenseDAO.delete(expenseLastMonth);
+    }
+
+    @Test
+    public void testSelectTotalExpensesOfActualYear() throws Exception {
+        // Prepare
+        Calendar dateActualYear = Calendar.getInstance();
+        Calendar dateLastYear = Calendar.getInstance();
+        dateLastYear.set(Calendar.YEAR, (Calendar.YEAR - 1));
+
+        String description = "Description";
+        String type = "Type";
+        double value = 12345;
+        int id1 = 1, id2 = 2;
+
+        Expense expenseActualYear = new Expense();
+        expenseActualYear.setDate(dateActualYear.getTime());
+        expenseActualYear.setType(type);
+        expenseActualYear.setValue(value);
+        expenseActualYear.setId(id1);
+        expenseActualYear.setDescription(description);
+
+        Expense expenseLastYear = new Expense();
+        expenseLastYear.setDate(dateLastYear.getTime());
+        expenseLastYear.setDescription(description);
+        expenseLastYear.setValue(value);
+        expenseLastYear.setType(type);
+        expenseLastYear.setId(id2);
+
+        expenseDAO.insert(expenseLastYear);
+        expenseDAO.insert(expenseActualYear);
+
+        // Action
+        double totalSelected = expenseDAO.selectTotalMonth(new Date(), null);
+
+        // Verify
+        assertEquals(value, totalSelected);
+        expenseDAO.delete(expenseActualYear);
+        expenseDAO.delete(expenseLastYear);
     }
 }
