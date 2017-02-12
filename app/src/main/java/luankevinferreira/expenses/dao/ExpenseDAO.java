@@ -94,8 +94,9 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         calendar.setTime(date);
 
         String strMonth = decimalFormat.format(calendar.get(Calendar.MONTH) + DateUtils.ONE_MONTH);
+        strMonth += decimalFormat.format(calendar.get(Calendar.YEAR));
 
-        String query = "SELECT * FROM " + TABLE + " WHERE strftime('%m', " + EXPENSE_DATE + ") = ?";
+        String query = "SELECT * FROM " + TABLE + " WHERE strftime('%m%Y', " + EXPENSE_DATE + ") = ?";
         String[] whereArgs = new String[]{strMonth};
 
         if ((filter != null) && (!filter.isEmpty())) {
@@ -129,17 +130,18 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
-        String strMonth = decimalFormat.format(calendar.get(Calendar.MONTH) + DateUtils.ONE_MONTH);
+        String actualMonth = decimalFormat.format(calendar.get(Calendar.MONTH) + DateUtils.ONE_MONTH);
+        actualMonth += decimalFormat.format(calendar.get(Calendar.YEAR));
 
-        String query = "SELECT SUM(" + VALUE + ") FROM " + TABLE + " WHERE strftime('%m', "
+        String query = "SELECT SUM(" + VALUE + ") FROM " + TABLE + " WHERE strftime('%m%Y', "
                 + EXPENSE_DATE + ") = ?";
 
-        String[] whereArgs = new String[]{strMonth};
+        String[] whereArgs = new String[]{actualMonth};
 
         if ((filter != null) && (!filter.isEmpty())) {
             if ((!filter.equals(NO_FILTER_BR)) && (!filter.equals(NO_FILTER_EN))) {
                 query += " AND " + TYPE + " = ?";
-                whereArgs = new String[]{strMonth, filter};
+                whereArgs = new String[]{actualMonth, filter};
             }
         }
 
@@ -169,8 +171,9 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         Calendar calendar = Calendar.getInstance();
 
         String strMonth = decimalFormat.format(calendar.get(Calendar.MONTH) + DateUtils.ONE_MONTH);
+        strMonth += decimalFormat.format(calendar.get(Calendar.YEAR));
 
-        String query = "SELECT DISTINCT " + TYPE + " FROM " + TABLE + " WHERE strftime('%m', "
+        String query = "SELECT DISTINCT " + TYPE + " FROM " + TABLE + " WHERE strftime('%m%Y', "
                 + EXPENSE_DATE + ") = ?";
 
         String[] whereArgs = new String[]{strMonth};
@@ -193,10 +196,9 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
     }
 
     /**
-     *
      * @return true if all records are deleted
      */
-    public boolean deleteAll() {
+    boolean deleteAll() {
         return getSqLiteDatabase().delete(TABLE, null, new String[]{}) == -1;
     }
 }
