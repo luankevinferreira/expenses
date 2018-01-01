@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 27
@@ -9,9 +8,9 @@ android {
     defaultConfig {
         applicationId "luankevinferreira.expenses"
         minSdkVersion 15
-        targetSdkVersion 24
-        versionCode 15
-        versionName "1.1.6"
+        targetSdkVersion 27
+        versionCode 16
+        versionName "1.2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -32,10 +31,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:27.0.2'
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:27.0.2'
     compile 'com.jjoe64:graphview:4.0.1'
-    compile 'com.google.android.gms:play-services-analytics:9.0.0'
+    testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:1.9.5"
     testCompile 'org.powermock:powermock-api-mockito:1.6.1'
     testCompile 'org.powermock:powermock-module-junit4-rule-agent:1.6.1'
