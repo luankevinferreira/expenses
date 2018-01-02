@@ -13,7 +13,6 @@ env:
     - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default - see #247)
 android:
   components:
-    - tools
     - platform-tools	
     - tools
     - build-tools-$ANDROID_BUILD_TOOLS_VERSION
@@ -26,6 +25,7 @@ android:
     # Specify at least one system image
     - sys-img-armeabi-v7a-android-$ANDROID_API_LEVEL
 before_install:
+  - yes | sdkmanager "platforms;android-27"
   - chmod +x gradlew
   - mkdir "$ANDROID_HOME/licenses" || true
   - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
