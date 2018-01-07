@@ -3,7 +3,7 @@ package luankevinferreira.expenses.domain;
 public class Type {
 
     private String name;
-    private Integer id;
+    private long id;
 
     public String getName() {
         return name;
@@ -13,11 +13,11 @@ public class Type {
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

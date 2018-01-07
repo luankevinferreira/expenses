@@ -28,15 +28,4 @@
     <string name="title_graphic">Gastos dos últimos meses</string>
     <string name="total">Total</string>
     <string name="total_month">Total de gastos do mês</string>
-
-    <array name="expense_types">
-        <item>Alimentação</item>
-        <item>Educação</item>
-        <item>Lazer</item>
-        <item>Moradia</item>
-        <item>Pagamentos</item>
-        <item>Roupa</item>
-        <item>Transporte</item>
-        <item>Vários</item>
-    </array>
 </resources>

@@ -5,13 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +22,7 @@ import java.util.Locale;
 
 import luankevinferreira.expenses.components.DatePickerFragment;
 import luankevinferreira.expenses.dao.ExpenseDAO;
+import luankevinferreira.expenses.dao.TypeDAO;
 import luankevinferreira.expenses.domain.Expense;
 import luankevinferreira.expenses.domain.Type;
 import luankevinferreira.expenses.enumeration.CodeIntentType;
@@ -50,12 +54,23 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        expenseValue = (EditText) findViewById(R.id.expense_value);
-        expenseDescription = (EditText) findViewById(R.id.expense_description);
-        expenseType = (Spinner) findViewById(R.id.expense_type);
-        expenseDate = (TextView) findViewById(R.id.date_picker);
+        expenseValue = findViewById(R.id.expense_value);
+        expenseDescription = findViewById(R.id.expense_description);
+        expenseDate = findViewById(R.id.date_picker);
 
-        Button btnSave = (Button) findViewById(R.id.save_expense);
+        expenseType = findViewById(R.id.expense_type);
+        TypeDAO typeDAO = new TypeDAO(getApplicationContext());
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, typeDAO.findAllDescriptions());
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        expenseType.setAdapter(dataAdapter);
+        try {
+            typeDAO.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Button btnSave = findViewById(R.id.save_expense);
         if (btnSave != null)
             btnSave.setOnClickListener(this);
 
@@ -159,7 +174,7 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
         List<Type> items = new SpinnerUtils().retrieveAllItems(expenseType);
         for (Type type : items) {
             if (expenseExtra.getType().equals(type.getName()))
-                expenseType.setSelection(type.getId());
+                expenseType.setSelection((int) type.getId());
         }
     }
 }

@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         for (Type t : types) {
-            menu.add(R.id.group_filter, t.getId(), ORDER, t.getName());
+            menu.add(R.id.group_filter, (int) t.getId(), ORDER, t.getName());
         }
         return true;
     }
