@@ -1,5 +1,6 @@
 package luankevinferreira.expenses;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -8,13 +9,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,12 +33,14 @@ import luankevinferreira.expenses.util.SpinnerUtils;
 import static android.view.View.OnClickListener;
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
+import static luankevinferreira.expenses.enumeration.CodeIntentType.REQUEST_DETAIL_EXPENSES;
 
 public class ExpenseActivity extends AppCompatActivity implements OnClickListener {
 
     private EditText expenseValue, expenseDescription;
     private TextView expenseDate;
     private Spinner expenseType;
+    private ImageView expense_type_add;
 
     private Expense expenseExtra;
     private SimpleDateFormat format;
@@ -57,6 +60,9 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
         expenseValue = findViewById(R.id.expense_value);
         expenseDescription = findViewById(R.id.expense_description);
         expenseDate = findViewById(R.id.date_picker);
+
+        expense_type_add = findViewById(R.id.expense_type_add);
+        expense_type_add.setOnClickListener(this);
 
         expenseType = findViewById(R.id.expense_type);
         TypeDAO typeDAO = new TypeDAO(getApplicationContext());
@@ -140,6 +146,9 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
                 dao.close();
             }
             finish();
+        } else if (id == R.id.expense_type_add) {
+            Intent intent = new Intent(getApplicationContext(), TypeActivity.class);
+            startActivityForResult(intent, REQUEST_DETAIL_EXPENSES.getCode());
         }
     }
 

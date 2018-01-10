@@ -102,11 +102,28 @@
 
             </LinearLayout>
 
-            <Spinner
-                android:id="@+id/expense_type"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp" />
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/expense_type_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/ic_add_circle_outline_black_36dp" />
+
+                <Spinner
+                    android:id="@+id/expense_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9.5"
+                    android:padding="15dp" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/save_expense"

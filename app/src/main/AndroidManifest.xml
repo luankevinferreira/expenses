@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="luankevinferreira.expenses.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,13 +20,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="luankevinferreira.expenses.ExpenseActivity"
-            android:parentActivityName="luankevinferreira.expenses.HistoryActivity"
+            android:name=".ExpenseActivity"
+            android:parentActivityName=".HistoryActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name="luankevinferreira.expenses.HistoryActivity"
+            android:name=".HistoryActivity"
             android:label="@string/activity_history"
-            android:parentActivityName="luankevinferreira.expenses.MainActivity" />
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".TypeActivity"
+            android:label="TODO"
+            android:parentActivityName=".ExpenseActivity"/>
     </application>
 
 </manifest>
