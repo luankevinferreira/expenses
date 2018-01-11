@@ -19,12 +19,12 @@ import luankevinferreira.expenses.domain.Expense;
 import luankevinferreira.expenses.domain.Type;
 import luankevinferreira.expenses.util.DateUtils;
 
-import static luankevinferreira.expenses.database.DatabaseManager.Expense.DESCRIPTION;
-import static luankevinferreira.expenses.database.DatabaseManager.Expense.EXPENSE_DATE;
-import static luankevinferreira.expenses.database.DatabaseManager.Expense.TABLE;
-import static luankevinferreira.expenses.database.DatabaseManager.Expense.TYPE;
-import static luankevinferreira.expenses.database.DatabaseManager.Expense.VALUE;
-import static luankevinferreira.expenses.database.DatabaseManager.Expense._ID;
+import static luankevinferreira.expenses.database.DatabaseManager.DESCRIPTION;
+import static luankevinferreira.expenses.database.DatabaseManager.EXPENSE_DATE;
+import static luankevinferreira.expenses.database.DatabaseManager.TABLE_EXPENSE;
+import static luankevinferreira.expenses.database.DatabaseManager.TYPE;
+import static luankevinferreira.expenses.database.DatabaseManager.VALUE;
+import static luankevinferreira.expenses.database.DatabaseManager._ID;
 
 public class ExpenseDAO implements Approachable<Expense>, Closeable {
 
@@ -64,14 +64,14 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         values.put(DESCRIPTION, expense.getDescription());
         values.put(TYPE, expense.getType());
 
-        return getSqLiteDatabase().insert(TABLE, null, values) != QUERY_ERROR;
+        return getSqLiteDatabase().insert(TABLE_EXPENSE, null, values) != QUERY_ERROR;
     }
 
     @Override
     public boolean delete(Expense expense) throws Exception {
         String whereClause = _ID + " = ?";
         String[] whereArgs = new String[]{String.valueOf(expense.getId())};
-        int removed = getSqLiteDatabase().delete(TABLE, whereClause, whereArgs);
+        int removed = getSqLiteDatabase().delete(TABLE_EXPENSE, whereClause, whereArgs);
         return removed > ZERO;
     }
 
@@ -85,7 +85,7 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         values.put(DESCRIPTION, expense.getDescription());
         values.put(TYPE, expense.getType());
 
-        return getSqLiteDatabase().update(TABLE, values, _ID + " = ?", whereArgs) != QUERY_ERROR;
+        return getSqLiteDatabase().update(TABLE_EXPENSE, values, _ID + " = ?", whereArgs) != QUERY_ERROR;
     }
 
     public List<Expense> select(Date date, String filter) throws ParseException {
@@ -96,7 +96,7 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         String strMonth = decimalFormat.format(calendar.get(Calendar.MONTH) + DateUtils.ONE_MONTH);
         strMonth += decimalFormat.format(calendar.get(Calendar.YEAR));
 
-        String query = "SELECT * FROM " + TABLE + " WHERE strftime('%m%Y', " + EXPENSE_DATE + ") = ?";
+        String query = "SELECT * FROM " + TABLE_EXPENSE + " WHERE strftime('%m%Y', " + EXPENSE_DATE + ") = ?";
         String[] whereArgs = new String[]{strMonth};
 
         if ((filter != null) && (!filter.isEmpty())) {
@@ -133,7 +133,7 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         String actualMonth = decimalFormat.format(calendar.get(Calendar.MONTH) + DateUtils.ONE_MONTH);
         actualMonth += decimalFormat.format(calendar.get(Calendar.YEAR));
 
-        String query = "SELECT SUM(" + VALUE + ") FROM " + TABLE + " WHERE strftime('%m%Y', "
+        String query = "SELECT SUM(" + VALUE + ") FROM " + TABLE_EXPENSE + " WHERE strftime('%m%Y', "
                 + EXPENSE_DATE + ") = ?";
 
         String[] whereArgs = new String[]{actualMonth};
@@ -173,7 +173,7 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         String strMonth = decimalFormat.format(calendar.get(Calendar.MONTH) + DateUtils.ONE_MONTH);
         strMonth += decimalFormat.format(calendar.get(Calendar.YEAR));
 
-        String query = "SELECT DISTINCT " + TYPE + " FROM " + TABLE + " WHERE strftime('%m%Y', "
+        String query = "SELECT DISTINCT " + TYPE + " FROM " + TABLE_EXPENSE + " WHERE strftime('%m%Y', "
                 + EXPENSE_DATE + ") = ?";
 
         String[] whereArgs = new String[]{strMonth};
@@ -199,7 +199,7 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
      * @return true if all records are deleted
      */
     boolean deleteAll() {
-        return getSqLiteDatabase().delete(TABLE, null, new String[]{}) == -1;
+        return getSqLiteDatabase().delete(TABLE_EXPENSE, null, new String[]{}) == -1;
     }
 }
 
