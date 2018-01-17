@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import luankevinferreira.expenses.database.DatabaseManager;
 import luankevinferreira.expenses.domain.Expense;
@@ -41,6 +42,14 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         databaseManager = new DatabaseManager(context);
         decimalFormat = new DecimalFormat("00");
         dateUtils = new DateUtils();
+    }
+
+    public static String getNoFilter(){
+        if (Locale.getDefault().getLanguage().equals(Locale.ENGLISH.getLanguage())) {
+            return NO_FILTER_EN;
+        }
+
+        return NO_FILTER_BR;
     }
 
     private SQLiteDatabase getSqLiteDatabase() {

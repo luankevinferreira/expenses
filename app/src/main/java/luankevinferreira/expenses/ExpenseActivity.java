@@ -14,7 +14,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +32,8 @@ import luankevinferreira.expenses.util.SpinnerUtils;
 import static android.view.View.OnClickListener;
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
-import static luankevinferreira.expenses.enumeration.CodeIntentType.REQUEST_DETAIL_EXPENSES;
+import static luankevinferreira.expenses.enumeration.CodeIntentType.REQUEST_NEW_EXPENSE_TYPE;
+import static luankevinferreira.expenses.enumeration.CodeIntentType.STATUS_OK;
 
 public class ExpenseActivity extends AppCompatActivity implements OnClickListener {
 
@@ -70,11 +70,7 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
                 android.R.layout.simple_spinner_item, typeDAO.findAllDescriptions());
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         expenseType.setAdapter(dataAdapter);
-        try {
-            typeDAO.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        typeDAO.close();
 
         Button btnSave = findViewById(R.id.save_expense);
         if (btnSave != null)
@@ -148,7 +144,23 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
             finish();
         } else if (id == R.id.expense_type_add) {
             Intent intent = new Intent(getApplicationContext(), TypeActivity.class);
-            startActivityForResult(intent, REQUEST_DETAIL_EXPENSES.getCode());
+            startActivityForResult(intent, REQUEST_NEW_EXPENSE_TYPE.getCode());
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_NEW_EXPENSE_TYPE.getCode()) {
+            if (resultCode == STATUS_OK.getCode()) {
+                TypeDAO typeDAO = new TypeDAO(getApplicationContext());
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
+                        android.R.layout.simple_spinner_item, typeDAO.findAllDescriptions());
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                expenseType.setAdapter(dataAdapter);
+                typeDAO.close();
+            }
         }
     }
 

@@ -56,17 +56,17 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
 
         decimalFormat = new DecimalFormat(getString(R.string.decimal_pattern));
 
-        txvMonth = (TextView) findViewById(R.id.month_expense);
+        txvMonth = findViewById(R.id.month_expense);
         txvMonth.setText(dateFormat.format(calendar.getTime()));
 
-        txvTotalHistory = (TextView) findViewById(R.id.total_history);
+        txvTotalHistory = findViewById(R.id.total_history);
 
-        listView = (ListView) findViewById(R.id.listView);
+        listView =findViewById(R.id.listView);
         if (listView != null)
             listView.setOnItemClickListener(this);
 
-        btnNext = (ImageButton) findViewById(R.id.next_button);
-        btnPrev = (ImageButton) findViewById(R.id.prev_button);
+        btnNext = findViewById(R.id.next_button);
+        btnPrev = findViewById(R.id.prev_button);
         if ((btnNext != null) && (btnPrev != null)) {
             btnNext.setOnClickListener(this);
             btnPrev.setOnClickListener(this);

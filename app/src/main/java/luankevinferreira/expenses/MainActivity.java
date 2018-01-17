@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void configGraphic() {
-        series = new LineGraphSeries<>(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.NO_FILTER_EN));
+        series = new LineGraphSeries<>(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.getNoFilter()));
         series.setTitle(getString(R.string.total));
         series.setColor(Color.RED);
         graph.addSeries(series);

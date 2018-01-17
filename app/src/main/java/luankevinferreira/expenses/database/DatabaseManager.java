@@ -36,7 +36,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 DESCRIPTION + " TEXT, " + VALUE + " DOUBLE," + EXPENSE_DATE
                 + " DATETIME DEFAULT CURRENT_TIMESTAMP, " + TYPE + " TEXT DEFAULT \"Undefined\");");
 
-        db.execSQL("CREATE TABLE " + TABLE_EXPENSE + " (" + _ID + " INTERGER PRIMARY KEY, " +
+        db.execSQL("CREATE TABLE " + TABLE_TYPE + " (" + _ID + " INTERGER PRIMARY KEY, " +
                 DESCRIPTION + " TEXT);");
 
         insertDefaultExpenseTypes(db);

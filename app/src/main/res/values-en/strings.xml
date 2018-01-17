@@ -30,4 +30,5 @@
     <string name="hint_write_description">Add a description</string>
     <string name="normal_text">Normal Text</string>
     <string name="success_delete">Deleted success!</string>
+    <string name="activity_type">New expense type</string>
 </resources>

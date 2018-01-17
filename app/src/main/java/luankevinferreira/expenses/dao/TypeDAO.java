@@ -74,7 +74,7 @@ public class TypeDAO implements Approachable<Type>, Closeable {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         databaseManager.close();
         sqLiteDatabase = null;
     }
