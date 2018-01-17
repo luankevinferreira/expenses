@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
@@ -39,8 +37,6 @@ import static luankevinferreira.expenses.enumeration.CodeIntentType.STATUS_OK;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "MainActivity";
-
     public static final int DELAY_MILLIS = 300;
     public static final int ORDER = 0;
     private Button totalMonth;
@@ -51,26 +47,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LineGraphSeries<DataPoint> series;
     private GraphicUtils graphicUtils;
 
-    private Tracker mTracker;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
-        // Obtain the shared Tracker instance.
-        AnalyticsApplication application = (AnalyticsApplication) getApplication();
-        mTracker = application.getDefaultTracker();
-
         formatter = new DecimalFormat(getString(R.string.decimal_pattern));
 
-        totalMonth = (Button) findViewById(R.id.total_month);
+        totalMonth = findViewById(R.id.total_month);
         if (totalMonth != null)
             totalMonth.setOnClickListener(this);
 
         graphicUtils = new GraphicUtils();
-        graph = (GraphView) findViewById(R.id.graph);
+        graph = findViewById(R.id.graph);
         if (graph != null)
             configGraphic();
 
@@ -79,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rotateBackward = loadAnimation(getApplicationContext(), R.anim.rotate_backward);
         clickAlpha = loadAnimation(getApplicationContext(), R.anim.click_alpha);
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         if (fab != null)
             fab.setOnClickListener(this);
     }
@@ -88,10 +78,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         updateTotalMonth(ExpenseDAO.NO_FILTER_EN);
-
-        Log.i(TAG, "Setting screen name: " + getClass().getCanonicalName());
-        mTracker.setScreenName("Image~" + getClass().getCanonicalName());
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -108,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         for (Type t : types) {
-            menu.add(R.id.group_filter, t.getId(), ORDER, t.getName());
+            menu.add(R.id.group_filter, (int) t.getId(), ORDER, t.getName());
         }
         return true;
     }
@@ -167,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void configGraphic() {
-        series = new LineGraphSeries<>(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.NO_FILTER_EN));
+        series = new LineGraphSeries<>(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.getNoFilter()));
         series.setTitle(getString(R.string.total));
         series.setColor(Color.RED);
         graph.addSeries(series);

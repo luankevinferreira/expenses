@@ -1,12 +1,15 @@
 package luankevinferreira.expenses;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ import java.util.Locale;
 
 import luankevinferreira.expenses.components.DatePickerFragment;
 import luankevinferreira.expenses.dao.ExpenseDAO;
+import luankevinferreira.expenses.dao.TypeDAO;
 import luankevinferreira.expenses.domain.Expense;
 import luankevinferreira.expenses.domain.Type;
 import luankevinferreira.expenses.enumeration.CodeIntentType;
@@ -28,12 +32,15 @@ import luankevinferreira.expenses.util.SpinnerUtils;
 import static android.view.View.OnClickListener;
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
+import static luankevinferreira.expenses.enumeration.CodeIntentType.REQUEST_NEW_EXPENSE_TYPE;
+import static luankevinferreira.expenses.enumeration.CodeIntentType.STATUS_OK;
 
 public class ExpenseActivity extends AppCompatActivity implements OnClickListener {
 
     private EditText expenseValue, expenseDescription;
     private TextView expenseDate;
     private Spinner expenseType;
+    private ImageView expense_type_add;
 
     private Expense expenseExtra;
     private SimpleDateFormat format;
@@ -50,12 +57,22 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        expenseValue = (EditText) findViewById(R.id.expense_value);
-        expenseDescription = (EditText) findViewById(R.id.expense_description);
-        expenseType = (Spinner) findViewById(R.id.expense_type);
-        expenseDate = (TextView) findViewById(R.id.date_picker);
+        expenseValue = findViewById(R.id.expense_value);
+        expenseDescription = findViewById(R.id.expense_description);
+        expenseDate = findViewById(R.id.date_picker);
 
-        Button btnSave = (Button) findViewById(R.id.save_expense);
+        expense_type_add = findViewById(R.id.expense_type_add);
+        expense_type_add.setOnClickListener(this);
+
+        expenseType = findViewById(R.id.expense_type);
+        TypeDAO typeDAO = new TypeDAO(getApplicationContext());
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, typeDAO.findAllDescriptions());
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        expenseType.setAdapter(dataAdapter);
+        typeDAO.close();
+
+        Button btnSave = findViewById(R.id.save_expense);
         if (btnSave != null)
             btnSave.setOnClickListener(this);
 
@@ -125,6 +142,25 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
                 dao.close();
             }
             finish();
+        } else if (id == R.id.expense_type_add) {
+            Intent intent = new Intent(getApplicationContext(), TypeActivity.class);
+            startActivityForResult(intent, REQUEST_NEW_EXPENSE_TYPE.getCode());
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_NEW_EXPENSE_TYPE.getCode()) {
+            if (resultCode == STATUS_OK.getCode()) {
+                TypeDAO typeDAO = new TypeDAO(getApplicationContext());
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
+                        android.R.layout.simple_spinner_item, typeDAO.findAllDescriptions());
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                expenseType.setAdapter(dataAdapter);
+                typeDAO.close();
+            }
         }
     }
 
@@ -159,7 +195,7 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
         List<Type> items = new SpinnerUtils().retrieveAllItems(expenseType);
         for (Type type : items) {
             if (expenseExtra.getType().equals(type.getName()))
-                expenseType.setSelection(type.getId());
+                expenseType.setSelection((int) type.getId());
         }
     }
 }

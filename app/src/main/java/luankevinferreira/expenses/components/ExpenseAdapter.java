@@ -54,10 +54,10 @@ public class ExpenseAdapter extends BaseAdapter {
 
         View lineAdapter = inflater.inflate(R.layout.line_for_list, parent, false);
 
-        TextView value = (TextView) lineAdapter.findViewById(R.id.line_expense);
-        TextView description = (TextView) lineAdapter.findViewById(R.id.line_description);
-        TextView type = (TextView) lineAdapter.findViewById(R.id.line_type);
-        TextView date = (TextView) lineAdapter.findViewById(R.id.line_date);
+        TextView value = lineAdapter.findViewById(R.id.line_expense);
+        TextView description = lineAdapter.findViewById(R.id.line_description);
+        TextView type = lineAdapter.findViewById(R.id.line_type);
+        TextView date = lineAdapter.findViewById(R.id.line_date);
 
         Expense expense = expenses.get(position);
 

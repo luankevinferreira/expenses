@@ -1,5 +1,6 @@
 <resources>
     <string name="activity_history">Histórico de despesas</string>
+    <string name="activity_type">Novo tipo de despesa</string>
     <string name="all">* TODOS *</string>
     <string name="author">Luan Kevin Ferreira</string>
     <string name="country">BR</string>
@@ -28,15 +29,4 @@
     <string name="title_graphic">Gastos dos últimos meses</string>
     <string name="total">Total</string>
     <string name="total_month">Total de gastos do mês</string>
-
-    <array name="expense_types">
-        <item>Alimentação</item>
-        <item>Educação</item>
-        <item>Lazer</item>
-        <item>Moradia</item>
-        <item>Pagamentos</item>
-        <item>Roupa</item>
-        <item>Transporte</item>
-        <item>Vários</item>
-    </array>
 </resources>

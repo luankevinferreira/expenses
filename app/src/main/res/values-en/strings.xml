@@ -30,15 +30,5 @@
     <string name="hint_write_description">Add a description</string>
     <string name="normal_text">Normal Text</string>
     <string name="success_delete">Deleted success!</string>
-
-    <array name="expense_types">
-        <item>Food</item>
-        <item>Education</item>
-        <item>Recreation</item>
-        <item>Dwelling</item>
-        <item>Payments</item>
-        <item>Clothes</item>
-        <item>Transportation</item>
-        <item>Others</item>
-    </array>
+    <string name="activity_type">New expense type</string>
 </resources>
