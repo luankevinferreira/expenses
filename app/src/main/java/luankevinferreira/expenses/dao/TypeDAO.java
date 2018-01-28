@@ -41,7 +41,7 @@ public class TypeDAO implements Approachable<Type>, Closeable {
      * @return list of all description types of expenses stored in the database.
      */
     public List<String> findAllDescriptions() {
-        Cursor cursor = getSqLiteDatabase().rawQuery("SELECT * FROM type", null);
+        Cursor cursor = getSqLiteDatabase().rawQuery("SELECT * FROM type ORDER BY description", null);
 
         List<String> types = new ArrayList<>();
 
