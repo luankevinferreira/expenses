@@ -1,0 +1,195 @@
+repo_name: luankevinferreira/expenses
+report_id: 50ff1fb1c77d283ec742c817eecb554c
+version: 0.1
+repo_type: Public
+timestamp: '2024-01-24T00:01:34+00:00'
+requested_by: luankevinferreira
+provider: github
+branch: master
+detected_tools_count: 14
+tools:
+- name: Java
+  description: A concurrent, class-based, object-oriented, language specifically designed
+    to have as few implementation dependencies as possible
+  website_url: https://www.java.com
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/995/K85ZWV2F.png
+  detection_source_url: https://github.com/luankevinferreira/expenses
+  detection_source: Repo Metadata
+- name: Android SDK
+  description: An SDK that provides you the API libraries and developer tools necessary
+    to build, test, and debug apps for Android.
+  website_url: http://developer.android.com
+  version: '27.0'
+  open_source: false
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Frameworks (Full Stack)
+  image_url: https://img.stackshare.io/service/1010/m8jf0po4imu8t5eemjdd.png
+  detection_source_url: https://github.com/luankevinferreira/expenses/blob/master/app/build.gradle
+  detection_source: app/build.gradle
+  last_updated_by: Luan Kevin Ferreira
+  last_updated_on: 2018-01-10 20:49:37.000000000 Z
+- name: Codecov
+  description: Hosted coverage reports with awesome features to enhance your CI workflow
+  website_url: https://codecov.io/
+  open_source: false
+  hosted_saas: true
+  category: Build, Test, Deploy
+  sub_category: Code Coverage
+  image_url: https://img.stackshare.io/service/2673/Codecov_Mark_Circle_Pink.png
+  detection_source_url: https://github.com/luankevinferreira/expenses/blob/master/codecov.yml
+  detection_source: codecov.yml
+  last_updated_by: Luan Kevin Ferreira
+  last_updated_on: 2016-07-20 20:00:16.000000000 Z
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/luankevinferreira/expenses
+  detection_source: Repo Metadata
+- name: Gradle
+  description: A powerful build system for the JVM
+  website_url: https://www.gradle.org/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Java Build Tools
+  image_url: https://img.stackshare.io/service/975/gradlephant-social-black-bg.png
+  detection_source_url: https://github.com/luankevinferreira/expenses/blob/master/app/build.gradle
+  detection_source: app/build.gradle
+  last_updated_by: luankevinferreira
+  last_updated_on: 2016-07-09 15:48:22.000000000 Z
+- name: Mockito
+  description: Tasty mocking framework for unit tests in Java
+  website_url: https://site.mockito.org/
+  version: 1.9.5
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Testing Frameworks
+  image_url: https://img.stackshare.io/service/2021/4y634TJm_400x400.jpg
+  detection_source_url: https://github.com/luankevinferreira/expenses/blob/master/app/build.gradle
+  detection_source: app/build.gradle
+  last_updated_by: luankevinferreira
+  last_updated_on: 2016-07-09 15:48:22.000000000 Z
+- name: Travis CI
+  description: A hosted continuous integration service for open source and private
+    projects
+  website_url: http://travis-ci.com/
+  open_source: false
+  hosted_saas: true
+  category: Build, Test, Deploy
+  sub_category: Continuous Integration
+  image_url: https://img.stackshare.io/service/460/Lu6cGu0z_400x400.png
+  detection_source_url: https://github.com/luankevinferreira/expenses/blob/master/.travis.yml
+  detection_source: ".travis.yml"
+  last_updated_by: Luan Kevin Ferreira
+  last_updated_on: 2016-07-20 16:35:35.000000000 Z
+- name: Android OS
+  description: An open source mobile operating system by Google
+  website_url: https://www.android.com
+  version: '8.1'
+  open_source: false
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Operating Systems
+  image_url: https://img.stackshare.io/service/9586/ZvmtaSXW_400x400.jpg
+  detection_source_url: https://github.com/luankevinferreira/expenses/blob/master/app/build.gradle
+  detection_source: app/build.gradle
+  last_updated_by: Luan Kevin Ferreira
+  last_updated_on: 2018-01-10 20:49:37.000000000 Z
+- name: junit:junit
+  description: JUnit is a unit testing framework for Java
+  version: '4.12'
+  license: EPL-1.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/luankevinferreira/expenses/blob/master/app/build.gradle
+  detection_source: app/build.gradle
+  last_updated_by: Luan Kevin Ferreira
+  last_updated_on: 2018-01-01 19:51:58.000000000 Z
+  vulnerabilities:
+  - name: TemporaryFolder on unix-like systems does not limit access to created files
+    cve_id: CVE-2020-15250
+    cve_url: https://github.com/advisories/GHSA-269g-pwp5-87pp
+    detected_date: Aug 22
+    severity: moderate
+    first_patched: 4.13.1
+- name: org.mockito:mockito-core
+  description: Mockito mock objects library core API and implementation
+  version: 1.9.5
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/luankevinferreira/expenses/blob/master/app/build.gradle
+  detection_source: app/build.gradle
+  last_updated_by: Luan Kevin Ferreira
+  last_updated_on: 2016-12-24 20:32:48.000000000 Z
+- name: org.powermock:powermock-api-mockito
+  description: PowerMock API for Mockito 1.+.
+  version: 1.6.1
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/luankevinferreira/expenses/blob/master/app/build.gradle
+  detection_source: app/build.gradle
+  last_updated_by: luankevinferreira
+  last_updated_on: 2016-07-09 15:48:22.000000000 Z
+- name: org.powermock:powermock-module-junit4
+  description: PowerMock support module for JUnit 4.x
+  version: 1.6.1
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/luankevinferreira/expenses/blob/master/app/build.gradle
+  detection_source: app/build.gradle
+  last_updated_by: Luan Kevin Ferreira
+  last_updated_on: 2018-01-01 19:51:58.000000000 Z
+- name: org.powermock:powermock-module-junit4-rule
+  description: PowerMock support module for JUnit 4.x rules
+  version: 1.6.1
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/luankevinferreira/expenses/blob/master/app/build.gradle
+  detection_source: app/build.gradle
+  last_updated_by: Luan Kevin Ferreira
+  last_updated_on: 2018-01-01 19:51:58.000000000 Z
+- name: org.powermock:powermock-module-junit4-rule-agent
+  description: PowerMock support module for JUnit 4.x rules with Java agent
+  version: 1.6.1
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/luankevinferreira/expenses/blob/master/app/build.gradle
+  detection_source: app/build.gradle
+  last_updated_by: Luan Kevin Ferreira
+  last_updated_on: 2018-01-01 19:51:58.000000000 Z
