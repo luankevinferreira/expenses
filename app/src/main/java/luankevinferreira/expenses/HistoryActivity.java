@@ -2,7 +2,7 @@ package luankevinferreira.expenses;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -93,7 +93,7 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
         try {
             expenses = dao.select(date, ExpenseDAO.NO_FILTER_EN);
         } catch (Exception exception) {
-            makeText(getApplicationContext(), getString(R.string.error_select), LENGTH_LONG);
+            makeText(getApplicationContext(), getString(R.string.error_select), LENGTH_LONG).show();
             finish();
         } finally {
             dao.close();

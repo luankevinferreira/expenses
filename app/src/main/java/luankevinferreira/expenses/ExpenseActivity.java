@@ -2,7 +2,7 @@ package luankevinferreira.expenses;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,7 +62,9 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
         expenseDate = findViewById(R.id.date_picker);
 
         expense_type_add = findViewById(R.id.expense_type_add);
-        expense_type_add.setOnClickListener(this);
+        if (expense_type_add != null) {
+            expense_type_add.setOnClickListener(this);
+        }
 
         expenseType = findViewById(R.id.expense_type);
         TypeDAO typeDAO = new TypeDAO(getApplicationContext());
@@ -116,6 +118,12 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
                 dao.close();
             }
             finish();
+            return true;
+        }
+
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -126,7 +134,7 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
         int id = view.getId();
 
         if (id == R.id.date_picker) {
-            new DatePickerFragment().show(getFragmentManager(), "datePicker");
+            new DatePickerFragment().show(getSupportFragmentManager(), "datePicker");
         } else if (id == R.id.save_expense) {
             if (expenseValue.getText().toString().isEmpty()) {
                 expenseValue.setError(getString(R.string.msg_error_value));
@@ -194,8 +202,14 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
 
         List<Type> items = new SpinnerUtils().retrieveAllItems(expenseType);
         for (Type type : items) {
-            if (expenseExtra.getType().equals(type.getName()))
-                expenseType.setSelection((int) type.getId());
+            if (expenseExtra.getType().equals(type.getName())) {
+                // Find index of type.getName() in adapter
+                ArrayAdapter<String> adapter = (ArrayAdapter<String>) expenseType.getAdapter();
+                int position = adapter.getPosition(type.getName());
+                if (position >= 0) {
+                    expenseType.setSelection(position);
+                }
+            }
         }
     }
 }

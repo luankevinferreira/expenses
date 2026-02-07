@@ -1,6 +1,6 @@
 package luankevinferreira.expenses;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -54,7 +54,9 @@ public class TypeActivity extends AppCompatActivity implements View.OnClickListe
                 setResult(CodeIntentType.STATUS_ERROR.getCode());
                 makeText(getApplicationContext(), getString(R.string.error_save), LENGTH_LONG).show();
             } finally {
-                dao.close();
+                if (dao != null) {
+                    dao.close();
+                }
                 finish();
             }
         }

@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">Despesas</string>
     <string name="activity_history">Histórico de despesas</string>
     <string name="activity_type">Novo tipo de despesa</string>
     <string name="all">* TODOS *</string>

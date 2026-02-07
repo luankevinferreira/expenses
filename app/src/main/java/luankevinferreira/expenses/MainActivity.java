@@ -3,9 +3,8 @@ package luankevinferreira.expenses;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
@@ -103,7 +103,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         String filter = item.getTitle().toString();
         updateTotalMonth(filter);
-        series.resetData(graphicUtils.getDataPoints(getApplicationContext(), filter));
+        if (series != null) {
+            series.resetData(graphicUtils.getDataPoints(getApplicationContext(), filter));
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -141,12 +143,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }, DELAY_MILLIS);
             if (resultCode == STATUS_OK.getCode()) {
-                series.resetData(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.NO_FILTER_EN));
+                if (series != null) {
+                    series.resetData(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.NO_FILTER_EN));
+                }
                 recreate();
             }
         } else if (requestCode == REQUEST_DETAIL_EXPENSES.getCode()) {
             if (resultCode == STATUS_OK.getCode()) {
-                series.resetData(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.NO_FILTER_EN));
+                if (series != null) {
+                    series.resetData(graphicUtils.getDataPoints(getApplicationContext(), ExpenseDAO.NO_FILTER_EN));
+                }
                 recreate();
             }
         }
