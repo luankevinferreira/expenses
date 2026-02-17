@@ -49,6 +49,7 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         Calendar calendar = Calendar.getInstance();
         Locale locale = new Locale(getString(R.string.language), getString(R.string.country));
