@@ -1,0 +1,104 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 8
+      uses: actions/setup-java@v4
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+        
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      
+    - name: Install Android SDK components
+      run: |
+        yes | sdkmanager "platforms;android-27"
+        yes | sdkmanager "build-tools;27.0.3"
+        
+    - name: Build with Gradle
+      run: ./gradlew build jacocoTestReport assembleAndroidTest
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      if: success()
+      with:
+        name: build-artifacts
+        path: |
+          app/build/outputs/
+          app/build/reports/
+          
+    - name: Upload code coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        files: ./app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+        
+  instrumentation-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        api-level: [24]
+        target: [default]
+        arch: [x86]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 8
+      uses: actions/setup-java@v4
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+        
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      
+    - name: Install Android SDK components
+      run: |
+        yes | sdkmanager "platforms;android-27"
+        yes | sdkmanager "build-tools;27.0.3"
+        
+    - name: Enable KVM group perms
+      run: |
+        echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+        sudo udevadm control --reload-rules
+        sudo udevadm trigger --name-match=kvm
+        
+    - name: Run instrumentation tests
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: ${{ matrix.api-level }}
+        target: ${{ matrix.target }}
+        arch: ${{ matrix.arch }}
+        script: ./gradlew connectedCheck
+        
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: instrumentation-test-results
+        path: |
+          app/build/reports/androidTests/
+          app/build/outputs/androidTest-results/
