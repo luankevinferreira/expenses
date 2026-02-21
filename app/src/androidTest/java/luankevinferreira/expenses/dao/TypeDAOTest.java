@@ -1,8 +1,8 @@
 package luankevinferreira.expenses.dao;
 
-import android.support.test.InstrumentationRegistry;
-import android.support.test.filters.LargeTest;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +24,7 @@ public class TypeDAOTest {
 
     @Before
     public void setUp() {
-        typeDAO = new TypeDAO(InstrumentationRegistry.getTargetContext());
+        typeDAO = new TypeDAO(InstrumentationRegistry.getInstrumentation().getTargetContext());
     }
 
     @After
