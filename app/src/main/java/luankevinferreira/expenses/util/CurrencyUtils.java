@@ -113,7 +113,11 @@ public class CurrencyUtils {
         if (digitsOnly.isEmpty()) {
             return 0;
         }
-        return Long.parseLong(digitsOnly);
+        try {
+            return Long.parseLong(digitsOnly);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
     /**
