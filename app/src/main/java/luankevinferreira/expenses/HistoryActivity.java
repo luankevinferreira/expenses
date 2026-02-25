@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
@@ -24,6 +23,7 @@ import luankevinferreira.expenses.components.ExpenseAdapter;
 import luankevinferreira.expenses.dao.ExpenseDAO;
 import luankevinferreira.expenses.domain.Expense;
 import luankevinferreira.expenses.enumeration.ExtraType;
+import luankevinferreira.expenses.util.CurrencyUtils;
 import luankevinferreira.expenses.util.DateUtils;
 
 import static android.view.View.OnClickListener;
@@ -41,7 +41,7 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
     private ImageButton btnNext, btnPrev;
 
     private List<Expense> expenses;
-    private DecimalFormat decimalFormat;
+    private Locale locale;
     private SimpleDateFormat dateFormat;
     private Calendar calendar;
 
@@ -51,10 +51,8 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
         setContentView(R.layout.activity_history);
 
         calendar = Calendar.getInstance();
-        Locale locale = new Locale(getString(R.string.language), getString(R.string.country));
+        locale = new Locale(getString(R.string.language), getString(R.string.country));
         dateFormat = new SimpleDateFormat(getString(R.string.date_month_pattern), locale);
-
-        decimalFormat = new DecimalFormat(getString(R.string.decimal_pattern));
 
         txvMonth = findViewById(R.id.month_expense);
         txvMonth.setText(dateFormat.format(calendar.getTime()));
@@ -114,7 +112,7 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
             total += expense.getValue();
         }
 
-        txvTotalHistory.setText(decimalFormat.format(total));
+        txvTotalHistory.setText(CurrencyUtils.formatCurrency(total, locale));
         txvMonth.setText(dateFormat.format(calendar.getTime()));
 
         listView.setAdapter(new ExpenseAdapter(getApplicationContext(), expenses));

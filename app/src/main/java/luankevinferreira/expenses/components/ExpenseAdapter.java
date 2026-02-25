@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
 import luankevinferreira.expenses.R;
 import luankevinferreira.expenses.domain.Expense;
+import luankevinferreira.expenses.util.CurrencyUtils;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -22,14 +22,13 @@ public class ExpenseAdapter extends BaseAdapter {
 
     private List<Expense> expenses;
     private Context context;
-    private DecimalFormat formatter;
+    private Locale locale;
     private SimpleDateFormat dateFormat;
 
     public ExpenseAdapter(Context context, List<Expense> expenses) {
         this.expenses = expenses;
         this.context = context;
-        formatter = new DecimalFormat(context.getString(R.string.decimal_pattern));
-        Locale locale = new Locale(context.getString(R.string.language), context.getString(R.string.country));
+        locale = new Locale(context.getString(R.string.language), context.getString(R.string.country));
         dateFormat = new SimpleDateFormat(context.getString(R.string.date_pattern), locale);
     }
 
@@ -61,7 +60,7 @@ public class ExpenseAdapter extends BaseAdapter {
 
         Expense expense = expenses.get(position);
 
-        value.setText(formatter.format(expense.getValue()));
+        value.setText(CurrencyUtils.formatCurrency(expense.getValue(), locale));
         description.setText(expense.getDescription());
         type.setText(expense.getType());
         date.setText(dateFormat.format(expense.getDate()));

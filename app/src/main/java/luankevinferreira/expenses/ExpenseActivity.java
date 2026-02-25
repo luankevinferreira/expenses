@@ -27,6 +27,7 @@ import luankevinferreira.expenses.domain.Expense;
 import luankevinferreira.expenses.domain.Type;
 import luankevinferreira.expenses.enumeration.CodeIntentType;
 import luankevinferreira.expenses.enumeration.ExtraType;
+import luankevinferreira.expenses.util.CurrencyTextWatcher;
 import luankevinferreira.expenses.util.SpinnerUtils;
 
 import static android.view.View.OnClickListener;
@@ -41,6 +42,8 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
     private TextView expenseDate;
     private Spinner expenseType;
     private ImageView expense_type_add;
+
+    private CurrencyTextWatcher currencyTextWatcher;
 
     private Expense expenseExtra;
     private SimpleDateFormat format;
@@ -59,6 +62,9 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         expenseValue = findViewById(R.id.expense_value);
+        currencyTextWatcher = new CurrencyTextWatcher(expenseValue, locale);
+        expenseValue.addTextChangedListener(currencyTextWatcher);
+
         expenseDescription = findViewById(R.id.expense_description);
         expenseDate = findViewById(R.id.date_picker);
 
@@ -137,7 +143,7 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
         if (id == R.id.date_picker) {
             new DatePickerFragment().show(getSupportFragmentManager(), "datePicker");
         } else if (id == R.id.save_expense) {
-            if (expenseValue.getText().toString().isEmpty()) {
+            if (currencyTextWatcher.getValue() == 0) {
                 expenseValue.setError(getString(R.string.msg_error_value));
                 return;
             }
@@ -178,7 +184,7 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
 
         Expense expense = new Expense();
         expense.setDate(dateExpense);
-        expense.setValue(Double.valueOf(expenseValue.getText().toString()));
+        expense.setValue(currencyTextWatcher.getValue());
         expense.setDescription(expenseDescription.getText().toString());
         expense.setType(expenseType.getSelectedItem().toString());
 
@@ -198,7 +204,7 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
 
     private void editionMode(Calendar calendar) {
         calendar.setTime(expenseExtra.getDate());
-        expenseValue.setText(String.valueOf(expenseExtra.getValue()));
+        currencyTextWatcher.setValue(expenseExtra.getValue());
         expenseDescription.setText(expenseExtra.getDescription());
 
         List<Type> items = new SpinnerUtils().retrieveAllItems(expenseType);
