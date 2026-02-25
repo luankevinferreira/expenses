@@ -10,7 +10,7 @@ import java.util.Locale;
  * A TextWatcher that applies a real-time currency mask to an EditText.
  * Uses right-to-left cents input: typing digits fills from right to left,
  * starting at the cents position.
- *
+ * <p>
  * Example for pt-BR locale, user types 1, 2, 3, 4, 5:
  *   R$ 0,01 -> R$ 0,12 -> R$ 1,23 -> R$ 12,34 -> R$ 123,45
  */

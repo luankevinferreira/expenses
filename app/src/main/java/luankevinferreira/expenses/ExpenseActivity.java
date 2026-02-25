@@ -143,7 +143,7 @@ public class ExpenseActivity extends AppCompatActivity implements OnClickListene
         if (id == R.id.date_picker) {
             new DatePickerFragment().show(getSupportFragmentManager(), "datePicker");
         } else if (id == R.id.save_expense) {
-            if (currencyTextWatcher.getValue() == 0) {
+            if (Double.compare(currencyTextWatcher.getValue(), 0.0) == 0) {
                 expenseValue.setError(getString(R.string.msg_error_value));
                 return;
             }

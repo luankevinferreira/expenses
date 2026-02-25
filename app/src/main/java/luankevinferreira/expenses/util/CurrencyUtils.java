@@ -92,7 +92,7 @@ public class CurrencyUtils {
             // Normalize regular spaces to non-breaking spaces for parser compatibility
             String normalized = formatted.replace(' ', NON_BREAKING_SPACE);
             Number number = format.parse(normalized);
-            return number.doubleValue();
+            return number != null ? number.doubleValue(): 0.0;
         } catch (Exception e) {
             return 0.0;
         }
