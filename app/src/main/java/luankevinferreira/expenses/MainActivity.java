@@ -19,15 +19,16 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import luankevinferreira.expenses.dao.ExpenseDAO;
 import luankevinferreira.expenses.domain.Expense;
 import luankevinferreira.expenses.domain.Type;
+import luankevinferreira.expenses.util.CurrencyUtils;
 import luankevinferreira.expenses.util.GraphicUtils;
 
 import static android.view.animation.AnimationUtils.loadAnimation;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton fab;
     private Animation rotateForward, rotateBackward, clickAlpha;
     private GraphView graph;
-    private DecimalFormat formatter;
+    private Locale locale;
     private LineGraphSeries<DataPoint> series;
     private GraphicUtils graphicUtils;
 
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
-        formatter = new DecimalFormat(getString(R.string.decimal_pattern));
+        locale = new Locale(getString(R.string.language), getString(R.string.country));
 
         totalMonth = findViewById(R.id.total_month);
         if (totalMonth != null)
@@ -195,6 +196,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             total += expense.getValue();
         }
 
-        totalMonth.setText(formatter.format(total));
+        totalMonth.setText(CurrencyUtils.formatCurrency(total, locale));
     }
 }

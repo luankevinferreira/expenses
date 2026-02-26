@@ -5,7 +5,6 @@ connection.gradle.distribution=GRADLE_DISTRIBUTION(VERSION(8.9))
 connection.project.dir=
 eclipse.preferences.version=1
 gradle.user.home=
-java.home=/home/luan/.sdkman/candidates/java/21.0.9-amzn
 jvm.arguments=
 offline.mode=false
 override.workspace.settings=true

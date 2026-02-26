@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Expenses</string>
     <string name="all">* ALL *</string>
-    <string name="country">EN</string>
+    <string name="country">US</string>
     <string name="date">Date</string>
     <string name="date_pattern">MM-dd-yyyy</string>
     <string name="author">Luan Kevin Ferreira</string>
@@ -26,7 +26,7 @@
     <string name="error_delete">Error to delete register!</string>
     <string name="error_save">Error to data save!</string>
     <string name="error_select">Error to read data!</string>
-    <string name="hint_value">0.00</string>
+    <string name="hint_value">$0.00</string>
     <string name="hint_write_description">Add a description</string>
     <string name="normal_text">Normal Text</string>
     <string name="success_delete">Deleted success!</string>

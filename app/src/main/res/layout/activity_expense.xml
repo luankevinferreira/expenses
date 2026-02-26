@@ -53,8 +53,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="9.5"
                     android:hint="@string/hint_value"
-                    android:inputType="numberDecimal"
-                    android:maxLength="10"
+                    android:inputType="number"
+                    android:maxLength="16"
                     android:textColor="@color/red"
                     android:textColorHint="@color/red"
                     android:textSize="30sp" />
