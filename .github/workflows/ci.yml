@@ -31,8 +31,16 @@ jobs:
         yes | sdkmanager "platforms;android-35"
         yes | sdkmanager "build-tools;35.0.0"
 
-    - name: Build with Gradle
-      run: ./gradlew build assembleAndroidTest
+    - name: Build with Gradle and generate coverage
+      run: ./gradlew build assembleAndroidTest jacocoTestReport
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
+        fail_ci_if_error: true
+        verbose: true
       
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
@@ -42,6 +50,7 @@ jobs:
         path: |
           app/build/outputs/
           app/build/reports/
+          app/build/reports/jacoco/
           
         
   instrumentation-test:

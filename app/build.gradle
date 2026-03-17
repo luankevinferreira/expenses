@@ -1,5 +1,12 @@
+import org.gradle.testing.jacoco.tasks.JacocoReport
+
 plugins {
     id 'com.android.application'
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion = '0.8.11'
 }
 
 android {
@@ -27,6 +34,36 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+tasks.withType(Test).configureEach {
+    finalizedBy tasks.named('jacocoTestReport')
+}
+
+tasks.register('jacocoTestReport', JacocoReport) {
+    dependsOn 'testDebugUnitTest'
+
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
+
+    def fileFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*'
+    ]
+
+    def debugTree = fileTree(dir: "$buildDir/intermediates/javac/debug/classes", excludes: fileFilter)
+
+    sourceDirectories.setFrom(files('src/main/java'))
+    classDirectories.setFrom(files(debugTree))
+    executionData.setFrom(fileTree(dir: buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec',
+            'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec'
+    ]))
 }
 
 dependencies {
