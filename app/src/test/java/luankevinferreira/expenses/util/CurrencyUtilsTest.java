@@ -86,6 +86,18 @@ public class CurrencyUtilsTest {
         assertEquals("R$ 99.999,99", result);
     }
 
+    @Test
+    public void testShouldFormatNineDigitIntegerPartForBrazilianLocale() {
+        // Prepare
+        double value = 123456789.01;
+
+        // Action
+        String result = CurrencyUtils.formatCurrency(value, LOCALE_PT_BR);
+
+        // Verify
+        assertEquals("R$ 123.456.789,01", result);
+    }
+
     // --- formatCents(long, Locale) ---
 
     @Test
@@ -232,6 +244,20 @@ public class CurrencyUtilsTest {
 
         // Verify
         assertEquals(1, result);
+    }
+
+    @Test
+    public void testShouldConvertAndRoundTripLargeValueWithoutChangingCents() {
+        // Prepare
+        double value = 123456789.01;
+
+        // Action
+        long cents = CurrencyUtils.doubleToCents(value);
+        double roundTrip = CurrencyUtils.centsToDouble(cents);
+
+        // Verify
+        assertEquals(12345678901L, cents);
+        assertEquals(value, roundTrip, DELTA);
     }
 
     // --- parseCurrency(String, Locale) ---
