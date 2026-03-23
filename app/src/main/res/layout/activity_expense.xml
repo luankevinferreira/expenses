@@ -54,7 +54,7 @@
                     android:layout_weight="9.5"
                     android:hint="@string/hint_value"
                     android:inputType="number"
-                    android:maxLength="16"
+                    android:maxLength="24"
                     android:textColor="@color/red"
                     android:textColorHint="@color/red"
                     android:textSize="30sp" />

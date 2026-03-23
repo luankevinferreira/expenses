@@ -87,6 +87,18 @@ public class CurrencyTextWatcherTest {
     }
 
     @Test
+    public void testShouldFormatNineDigitIntegerPartBrazilian() {
+        // Prepare - user typed digits for 123.456.789,01
+        String input = "12345678901";
+
+        // Action
+        String result = simulateFormat(input, LOCALE_PT_BR);
+
+        // Verify
+        assertEquals("R$ 123.456.789,01", result);
+    }
+
+    @Test
     public void testShouldFormatEmptyInputBrazilian() {
         // Prepare
         String input = "";
