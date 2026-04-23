@@ -9,6 +9,8 @@
     <string name="delete">Delete</string>
     <string name="description">Description</string>
     <string name="edit">Edit</string>
+    <string name="export">Export</string>
+    <string name="export_file_name">expenses_%1$s.csv</string>
     <string name="filter">Filter</string>
     <string name="language">en</string>
     <string name="money">Money</string>
@@ -24,11 +26,13 @@
     <string name="date_month_pattern">MMMM</string>
     <string name="decimal_pattern">$######0.00</string>
     <string name="error_delete">Error to delete register!</string>
+    <string name="error_export">Error exporting data!</string>
     <string name="error_save">Error to data save!</string>
     <string name="error_select">Error to read data!</string>
     <string name="hint_value">$0.00</string>
     <string name="hint_write_description">Add a description</string>
     <string name="normal_text">Normal Text</string>
     <string name="success_delete">Deleted success!</string>
+    <string name="success_export">Data exported successfully!</string>
     <string name="activity_type">New expense type</string>
 </resources>
