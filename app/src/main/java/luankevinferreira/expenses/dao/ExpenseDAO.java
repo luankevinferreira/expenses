@@ -168,6 +168,29 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         return total;
     }
 
+    public List<Expense> selectAll() throws ParseException {
+        DateFormat format = dateUtils.getDateFormat();
+        Cursor cursor = getSqLiteDatabase().rawQuery("SELECT * FROM " + TABLE_EXPENSE
+                + " ORDER BY " + EXPENSE_DATE + " DESC", null);
+
+        List<Expense> expenses = new ArrayList<>();
+
+        if (cursor.moveToFirst()) {
+            do {
+                Expense expense = new Expense();
+                expense.setId(cursor.getLong(cursor.getColumnIndex(_ID)));
+                expense.setDescription(cursor.getString(cursor.getColumnIndex(DESCRIPTION)));
+                expense.setValue(cursor.getDouble(cursor.getColumnIndex(VALUE)));
+                expense.setDate(format.parse(cursor.getString(cursor.getColumnIndex(EXPENSE_DATE))));
+                expense.setType(cursor.getString(cursor.getColumnIndex(TYPE)));
+                expenses.add(expense);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return expenses;
+    }
+
     /**
      * Select in the database all distinct expense type from all expenses.
      *
@@ -211,4 +234,3 @@ public class ExpenseDAO implements Approachable<Expense>, Closeable {
         return getSqLiteDatabase().delete(TABLE_EXPENSE, null, new String[]{}) == -1;
     }
 }
-

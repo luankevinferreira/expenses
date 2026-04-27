@@ -12,7 +12,10 @@
     <string name="delete">Deletar</string>
     <string name="description">Descrição</string>
     <string name="edit">Editar</string>
+    <string name="export">Exportar</string>
+    <string name="export_file_name">despesas_%1$s.csv</string>
     <string name="error_delete">Erro ao deletar registro!</string>
+    <string name="error_export">Erro ao exportar dados!</string>
     <string name="error_save">Erro ao persistir dados!</string>
     <string name="error_select">Erro ao ler dados!</string>
     <string name="filter">Filtrar</string>
@@ -25,6 +28,7 @@
     <string name="normal_text">Texto Normal</string>
     <string name="previous">Anterior</string>
     <string name="success_delete">Registro deletado com sucesso!</string>
+    <string name="success_export">Dados exportados com sucesso!</string>
     <string name="success_save">Registro salvo com sucesso!</string>
     <string name="save">Salvar</string>
     <string name="title_graphic">Gastos dos últimos meses</string>

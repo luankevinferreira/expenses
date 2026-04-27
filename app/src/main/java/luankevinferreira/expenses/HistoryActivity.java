@@ -1,6 +1,7 @@
 package luankevinferreira.expenses;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
@@ -10,7 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
@@ -25,12 +30,14 @@ import luankevinferreira.expenses.domain.Expense;
 import luankevinferreira.expenses.enumeration.ExtraType;
 import luankevinferreira.expenses.util.CurrencyUtils;
 import luankevinferreira.expenses.util.DateUtils;
+import luankevinferreira.expenses.util.ExpenseCsvUtils;
 
 import static android.view.View.OnClickListener;
 import static android.widget.AdapterView.OnItemClickListener;
 import static android.widget.Toast.LENGTH_LONG;
 import static android.widget.Toast.makeText;
 import static luankevinferreira.expenses.enumeration.CodeIntentType.REQUEST_EDIT_EXPENSE;
+import static luankevinferreira.expenses.enumeration.CodeIntentType.REQUEST_EXPORT_EXPENSES;
 import static luankevinferreira.expenses.enumeration.CodeIntentType.STATUS_OK;
 
 public class HistoryActivity extends AppCompatActivity implements OnClickListener, OnItemClickListener {
@@ -76,6 +83,22 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_history, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_export) {
+            createExportDocument();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -83,6 +106,9 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
             if (resultCode == STATUS_OK.getCode()) {
                 readExpensesMoth(calendar.getTime());
             }
+        } else if ((requestCode == REQUEST_EXPORT_EXPENSES.getCode()) && (resultCode == RESULT_OK)
+                && (data != null) && (data.getData() != null)) {
+            exportExpenses(data.getData());
         }
     }
 
@@ -140,6 +166,44 @@ public class HistoryActivity extends AppCompatActivity implements OnClickListene
             Intent intent = new Intent(getApplicationContext(), ExpenseActivity.class);
             intent.putExtra(ExtraType.EXPENSE.getExtraAttribute(), expense);
             startActivityForResult(intent, REQUEST_EDIT_EXPENSE.getCode());
+        }
+    }
+
+    private void createExportDocument() {
+        SimpleDateFormat fileNameDateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US);
+        String fileName = getString(R.string.export_file_name,
+                fileNameDateFormat.format(new Date()));
+
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("text/csv");
+        intent.putExtra(Intent.EXTRA_TITLE, fileName);
+
+        startActivityForResult(intent, REQUEST_EXPORT_EXPENSES.getCode());
+    }
+
+    private void exportExpenses(Uri uri) {
+        ExpenseDAO dao = null;
+
+        try {
+            dao = new ExpenseDAO(getApplicationContext());
+            List<Expense> exportedExpenses = dao.selectAll();
+
+            try (OutputStream outputStream = getContentResolver().openOutputStream(uri)) {
+                if (outputStream == null) {
+                    throw new IOException("Unable to open export output stream");
+                }
+
+                ExpenseCsvUtils.write(exportedExpenses, outputStream);
+            }
+
+            makeText(getApplicationContext(), getString(R.string.success_export), LENGTH_LONG).show();
+        } catch (Exception exception) {
+            makeText(getApplicationContext(), getString(R.string.error_export), LENGTH_LONG).show();
+        } finally {
+            if (dao != null) {
+                dao.close();
+            }
         }
     }
 }
